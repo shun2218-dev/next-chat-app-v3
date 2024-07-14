@@ -1,0 +1,17 @@
+# Build artifacts
+.next/
+.turbo/
+_next/
+dist/
+
+pnpm-lock.yaml
+
+.husky
+.eslintignore
+.gitignore
+.npmrc
+.prettierignore
+LICENSE
+
+*.ico
+*.svg
