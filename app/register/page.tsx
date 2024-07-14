@@ -6,6 +6,7 @@ import type { RegisterInputs } from '@/types';
 import { Input } from '@nextui-org/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Link } from '@nextui-org/link';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
@@ -28,6 +29,12 @@ export default function RegisterPage() {
   return (
     <BasicForm
       buttonText="Create Account"
+      footer={
+        <>
+          <Link href="/login">Don&apos;t have an account yet?</Link>
+          <Link>Forgot your password?</Link>
+        </>
+      }
       formTitle="Sign Up"
       handleSubmit={handleSubmit(createAccount)}
       isValid={true}

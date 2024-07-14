@@ -6,6 +6,7 @@ import type { LoginInputs } from '@/types';
 import { Input } from '@nextui-org/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Link } from '@nextui-org/link';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
@@ -28,6 +29,9 @@ export default function LoginPage() {
   return (
     <BasicForm
       buttonText="Enter"
+      footer={
+        <Link href="/register">Don&apos;t have an account? Sign up here.</Link>
+      }
       formTitle="Sign In"
       handleSubmit={handleSubmit(signIn)}
       isValid={true}
