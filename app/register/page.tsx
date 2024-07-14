@@ -20,7 +20,7 @@ export default function RegisterPage() {
   } = useForm<RegisterInputs>({
     resolver: zodResolver(REGISTER_FORM_SCHEMA),
   });
-  const signIn: SubmitHandler<RegisterInputs> = async () => {
+  const createAccount: SubmitHandler<RegisterInputs> = async () => {
     console.log('submited');
   };
   // [email, password, confirmPassword].every((value) => value)
@@ -29,7 +29,7 @@ export default function RegisterPage() {
     <BasicForm
       buttonText="Create Account"
       formTitle="Sign Up"
-      handleSubmit={handleSubmit(signIn)}
+      handleSubmit={handleSubmit(createAccount)}
       isValid={true}
     >
       <FormItem>
