@@ -2,7 +2,6 @@
 
 import { Button } from '@nextui-org/button';
 import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
-import { Link } from '@nextui-org/link';
 import { FC, FormEvent, ReactNode } from 'react';
 
 import { title } from '@/components/primitives';
@@ -13,6 +12,7 @@ type Props = {
   handleSubmit: (e: FormEvent<HTMLInputElement>) => Promise<void>;
   isValid: boolean;
   formTitle: string;
+  footer?: ReactNode;
 };
 
 const BasicForm: FC<Props> = ({
@@ -21,12 +21,13 @@ const BasicForm: FC<Props> = ({
   handleSubmit,
   formTitle,
   isValid,
+  footer,
 }) => {
   return (
     <Card
       isBlurred
       as="form"
-      className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px] p-4"
+      className="border-none bg-background/60 dark:bg-default-100/50 max-w-[610px] min-w-[90svw] md:min-w-[510px] p-4"
       shadow="sm"
       onSubmit={handleSubmit}
     >
@@ -44,10 +45,11 @@ const BasicForm: FC<Props> = ({
           {buttonText}
         </Button>
       </CardBody>
-      <CardFooter className="w-[90%] mx-auto flex justify-center flex-col items-center md:flex-row md:justify-between">
-        <Link href="/login">Don&apos;t have an account yet?</Link>
-        <Link>Forgot your password?</Link>
-      </CardFooter>
+      {!!footer && (
+        <CardFooter className="w-[90%] mx-auto flex justify-center flex-col items-center md:flex-row md:justify-around">
+          {footer}
+        </CardFooter>
+      )}
     </Card>
   );
 };
