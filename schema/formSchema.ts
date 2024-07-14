@@ -28,7 +28,7 @@ const PASSWORD_SCHEMA = ONLY_REQUIRED.regex(
 
 export const LOGIN_FORM_SCHEMA = z.object({
   email: EMAIL_SCHEMA,
-  password: PASSWORD_SCHEMA,
+  password: ONLY_REQUIRED,
 });
 
 export const REGISTER_FORM_SCHEMA = z
