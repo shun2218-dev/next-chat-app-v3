@@ -18,14 +18,13 @@ export default function RegisterPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<RegisterInputs>({
     resolver: zodResolver(REGISTER_FORM_SCHEMA),
   });
   const createAccount: SubmitHandler<RegisterInputs> = async () => {
     console.log('submited');
   };
-  // [email, password, confirmPassword].every((value) => value)
 
   return (
     <BasicForm
@@ -39,7 +38,7 @@ export default function RegisterPage() {
       }
       formTitle="Sign Up"
       handleSubmit={handleSubmit(createAccount)}
-      isValid={true}
+      isValid={isValid}
     >
       <FormItem>
         <Input

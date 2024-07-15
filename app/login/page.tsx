@@ -18,14 +18,13 @@ export default function LoginPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<LoginInputs>({
     resolver: zodResolver(LOGIN_FORM_SCHEMA),
   });
   const signIn: SubmitHandler<LoginInputs> = async () => {
     console.log('submited');
   };
-  // [email, password, confirmPassword].every((value) => value)
 
   return (
     <BasicForm
@@ -36,7 +35,7 @@ export default function LoginPage() {
       }
       formTitle="Sign In"
       handleSubmit={handleSubmit(signIn)}
-      isValid={true}
+      isValid={isValid}
     >
       <FormItem>
         <Input
