@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@nextui-org/link';
 import LoginIcon from '@mui/icons-material/Login';
+import { useRouter } from 'next/navigation';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
@@ -22,8 +23,10 @@ export default function LoginPage() {
   } = useForm<LoginInputs>({
     resolver: zodResolver(LOGIN_FORM_SCHEMA),
   });
+  const router = useRouter();
   const signIn: SubmitHandler<LoginInputs> = async () => {
-    console.log('submited');
+    router.push('/mypage');
+    console.log('sign in');
   };
 
   return (

@@ -66,9 +66,11 @@
     "prettier": "^3.3.3",
     "tailwind-variants": "0.1.20",
     "tailwindcss": "3.4.3",
+    "turbo": "^2.0.6",
     "typescript": "5.0.4"
   },
   "volta": {
     "node": "20.15.1"
-  }
+  },
+  "packageManager": "pnpm@9.4.0"
 }
