@@ -7,6 +7,7 @@ import { Input } from '@nextui-org/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@nextui-org/link';
+import LoginIcon from '@mui/icons-material/Login';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
@@ -28,6 +29,7 @@ export default function LoginPage() {
 
   return (
     <BasicForm
+      buttonIcon={<LoginIcon />}
       buttonText="Enter"
       footer={
         <Link href="/register">Don&apos;t have an account? Sign up here.</Link>
