@@ -7,6 +7,7 @@ import { Input } from '@nextui-org/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@nextui-org/link';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
@@ -28,6 +29,7 @@ export default function RegisterPage() {
 
   return (
     <BasicForm
+      buttonIcon={<PersonAddIcon />}
       buttonText="Create Account"
       footer={
         <>
