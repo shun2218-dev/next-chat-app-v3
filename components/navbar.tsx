@@ -13,9 +13,6 @@ import { Link } from '@nextui-org/link';
 import { link as linkStyles } from '@nextui-org/theme';
 import NextLink from 'next/link';
 import clsx from 'clsx';
-import { useToggle } from 'react-use';
-import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -24,22 +21,11 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { siteConfig } from '@/config/site';
 import { ThemeSwitch } from '@/components/theme-switch';
 import { Logo } from '@/components/icons';
+import { checkAuth } from '@/libs/features/auth/authSlice';
+import { useAppSelector } from '@/libs/hooks';
 
 export const Navbar = () => {
-  const [isLogin, toggleLogin] = useToggle(false);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    if (isLogin && pathname.indexOf('mypage') !== -1) {
-      return;
-    }
-    if (!isLogin && pathname.indexOf('mypage') !== -1) {
-      toggleLogin(true);
-    }
-    if (isLogin && pathname.indexOf('mypage') === -1) {
-      toggleLogin(false);
-    }
-  }, [pathname]);
+  const isLoggedIn = useAppSelector(checkAuth);
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
@@ -75,7 +61,7 @@ export const Navbar = () => {
         <NavbarItem className="hidden lg:flex">
           <ThemeSwitch />
         </NavbarItem>
-        {!isLogin && (
+        {!isLoggedIn && (
           <>
             <NavbarItem className="hidden md:flex gap-x-4">
               <Button
@@ -99,7 +85,7 @@ export const Navbar = () => {
             </NavbarItem>
           </>
         )}
-        {isLogin && (
+        {isLoggedIn && (
           <>
             <NavbarItem className="hidden md:flex gap-x-4">
               <Button
@@ -114,7 +100,7 @@ export const Navbar = () => {
               <Button
                 as={Link}
                 color="danger"
-                href="/login"
+                href="/logout"
                 startContent={<LogoutIcon />}
                 variant="bordered"
               >
