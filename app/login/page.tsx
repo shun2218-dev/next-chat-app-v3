@@ -8,11 +8,14 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@nextui-org/link';
 import LoginIcon from '@mui/icons-material/Login';
+import { useRouter } from 'next/navigation';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
 import PasswordInput from '@/components/projects/PasswordInput/PasswordInput';
 import { LOGIN_FORM_SCHEMA } from '@/schema/formSchema';
+import { checkAuth, signIn } from '@/libs/features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '@/libs/hooks';
 
 export default function LoginPage() {
   const {
@@ -22,9 +25,22 @@ export default function LoginPage() {
   } = useForm<LoginInputs>({
     resolver: zodResolver(LOGIN_FORM_SCHEMA),
   });
-  const signIn: SubmitHandler<LoginInputs> = async () => {
-    console.log('submited');
+  const router = useRouter();
+  const isLoggedIn = useAppSelector(checkAuth);
+  const dispatch = useAppDispatch();
+  const _signIn: SubmitHandler<LoginInputs> = async ({ email, password }) => {
+    try {
+      const res = await dispatch(signIn({ email, password }));
+
+      router.push('/mypage');
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+  if (isLoggedIn) {
+    router.push('/mypage');
+  }
 
   return (
     <BasicForm
@@ -34,7 +50,7 @@ export default function LoginPage() {
         <Link href="/register">Don&apos;t have an account? Sign up here.</Link>
       }
       formTitle="Sign In"
-      handleSubmit={handleSubmit(signIn)}
+      handleSubmit={handleSubmit(_signIn)}
       isValid={isValid}
     >
       <FormItem>

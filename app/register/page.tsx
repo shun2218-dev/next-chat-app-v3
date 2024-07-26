@@ -8,11 +8,14 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@nextui-org/link';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { useRouter } from 'next/navigation';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
 import PasswordInput from '@/components/projects/PasswordInput/PasswordInput';
 import { REGISTER_FORM_SCHEMA } from '@/schema/formSchema';
+import { checkAuth, signUp } from '@/libs/features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '@/libs/hooks';
 
 export default function RegisterPage() {
   const {
@@ -22,9 +25,25 @@ export default function RegisterPage() {
   } = useForm<RegisterInputs>({
     resolver: zodResolver(REGISTER_FORM_SCHEMA),
   });
-  const createAccount: SubmitHandler<RegisterInputs> = async () => {
-    console.log('submited');
+  const router = useRouter();
+  const isLoggedIn = useAppSelector(checkAuth);
+  const dispatch = useAppDispatch();
+  const createAccount: SubmitHandler<RegisterInputs> = async ({
+    email,
+    password,
+  }) => {
+    try {
+      const res = await dispatch(signUp({ email, password }));
+
+      router.push('/mypage');
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+  if (isLoggedIn) {
+    router.push('/mypage');
+  }
 
   return (
     <BasicForm
@@ -32,7 +51,7 @@ export default function RegisterPage() {
       buttonText="Create Account"
       footer={
         <>
-          <Link href="/login">Don&apos;t have an account yet?</Link>
+          <Link href="/login">Already have an account?</Link>
           <Link>Forgot your password?</Link>
         </>
       }
