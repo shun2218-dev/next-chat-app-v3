@@ -15,3 +15,14 @@ export type LoginInputs = {
   password: string;
   confirmPassword: string;
 };
+
+export type User = {
+  email: string;
+  username: string;
+  imageUrl: string | null;
+};
+
+export type AuthPayload = {
+  email: string;
+  password: string;
+};
