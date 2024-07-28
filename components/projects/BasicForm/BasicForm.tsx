@@ -14,6 +14,7 @@ type Props = {
   formTitle: string;
   footer?: ReactNode;
   buttonIcon: ReactNode;
+  isLoading?: boolean;
 };
 
 const BasicForm: FC<Props> = ({
@@ -24,6 +25,7 @@ const BasicForm: FC<Props> = ({
   isValid,
   footer,
   buttonIcon,
+  isLoading = false,
 }) => {
   return (
     <Card
@@ -43,6 +45,7 @@ const BasicForm: FC<Props> = ({
           color="primary"
           endContent={buttonIcon}
           isDisabled={!isValid}
+          isLoading={isLoading}
           type="submit"
         >
           {buttonText}
