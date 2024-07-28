@@ -11,6 +11,7 @@ import { ThemeProvider as NextThemesProvider } from 'next-themes';
 import { ThemeProviderProps } from 'next-themes/dist/types';
 import { PersistGate } from 'redux-persist/integration/react';
 import { Persistor, persistStore } from 'redux-persist';
+import { SessionProvider } from 'next-auth/react';
 
 import { makeStore, persistor } from '@/libs/store';
 
@@ -33,12 +34,14 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   }
 
   return (
-    <Provider store={storeRef.current}>
-      <PersistGate loading={null} persistor={persistorRef.current}>
-        <NextUIProvider navigate={router.push}>
-          <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
-        </NextUIProvider>
-      </PersistGate>
-    </Provider>
+    <SessionProvider>
+      <Provider store={storeRef.current}>
+        <PersistGate loading={null} persistor={persistorRef.current}>
+          <NextUIProvider navigate={router.push}>
+            <NextThemesProvider {...themeProps}>{children}</NextThemesProvider>
+          </NextUIProvider>
+        </PersistGate>
+      </Provider>
+    </SessionProvider>
   );
 }

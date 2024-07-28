@@ -7,13 +7,13 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 export type RegisterInputs = {
   email: string;
   password: string;
-  confirmPassword: string;
+  confirmPassword?: string;
+  name?: string;
 };
 
 export type LoginInputs = {
   email: string;
   password: string;
-  confirmPassword: string;
 };
 
 export type User = {
@@ -22,7 +22,11 @@ export type User = {
   imageUrl: string | null;
 };
 
-export type AuthPayload = {
+export type SignInPayload = {
   email: string;
   password: string;
+};
+
+export type SignUpPayload = SignInPayload & {
+  name: string;
 };

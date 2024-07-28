@@ -1,6 +1,11 @@
 import { z } from 'zod';
 
-const ONLY_REQUIRED = z.string().min(1, 'This field is required');
+const REQUIRED_ONLY = z.string().min(1, 'This field is required');
+
+const MIN_CHAR = (min: number): [number, string] => [
+  min,
+  `This field must have more than ${min} characters`,
+];
 
 const NUMBER_CONTAINED = {
   regex: /[0-9]+/,
@@ -17,25 +22,26 @@ const UPPERCASE_CONTAINED = {
   message: 'Must have at least one uppercase character',
 };
 
-const EMAIL_SCHEMA = ONLY_REQUIRED.email();
+const EMAIL_SCHEMA = REQUIRED_ONLY.email();
 
-const PASSWORD_SCHEMA = ONLY_REQUIRED.regex(
-  NUMBER_CONTAINED.regex,
-  NUMBER_CONTAINED.message
-)
+const PASSWORD_SCHEMA = REQUIRED_ONLY.min(...MIN_CHAR(8))
+  .regex(NUMBER_CONTAINED.regex, NUMBER_CONTAINED.message)
   .regex(LOWERCASE_CONTAINED.regex, LOWERCASE_CONTAINED.message)
   .regex(UPPERCASE_CONTAINED.regex, UPPERCASE_CONTAINED.message);
 
+const USERNAME_SCHEMA = REQUIRED_ONLY.min(...MIN_CHAR(5));
+
 export const LOGIN_FORM_SCHEMA = z.object({
   email: EMAIL_SCHEMA,
-  password: ONLY_REQUIRED,
+  password: REQUIRED_ONLY,
 });
 
 export const REGISTER_FORM_SCHEMA = z
   .object({
     email: EMAIL_SCHEMA,
     password: PASSWORD_SCHEMA,
-    confirmPassword: ONLY_REQUIRED,
+    confirmPassword: REQUIRED_ONLY,
+    name: USERNAME_SCHEMA,
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
