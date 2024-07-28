@@ -9,13 +9,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@nextui-org/link';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useRouter } from 'next/navigation';
+import { signIn, useSession } from 'next-auth/react';
+import { useState } from 'react';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
 import PasswordInput from '@/components/projects/PasswordInput/PasswordInput';
 import { REGISTER_FORM_SCHEMA } from '@/schema/formSchema';
-import { checkAuth, signUp } from '@/libs/features/auth/authSlice';
-import { useAppDispatch, useAppSelector } from '@/libs/hooks';
 
 export default function RegisterPage() {
   const {
@@ -25,23 +25,47 @@ export default function RegisterPage() {
   } = useForm<RegisterInputs>({
     resolver: zodResolver(REGISTER_FORM_SCHEMA),
   });
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const { data: session, status } = useSession();
   const router = useRouter();
-  const isLoggedIn = useAppSelector(checkAuth);
-  const dispatch = useAppDispatch();
   const createAccount: SubmitHandler<RegisterInputs> = async ({
     email,
     password,
+    name,
   }) => {
     try {
-      const res = await dispatch(signUp({ email, password }));
+      const res = await fetch('/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password, name }),
+      });
 
-      router.push('/mypage');
+      if (!res.ok) throw new Error('Failed to create new account');
+
+      if (res.ok) {
+        setErrorMsg(null);
+        await signIn('credentials', {
+          email,
+          password,
+          callbackUrl: '/mypage',
+        });
+      }
+
+      return { message: 'OK' };
     } catch (err) {
-      console.error(err);
+      if (err instanceof Error) {
+        /* eslint-disable no-console */
+        console.error(err);
+        setErrorMsg(err.message);
+      }
+
+      return { message: 'NG' };
     }
   };
 
-  if (isLoggedIn) {
+  if (session) {
     router.push('/mypage');
   }
 
@@ -57,8 +81,14 @@ export default function RegisterPage() {
       }
       formTitle="Sign Up"
       handleSubmit={handleSubmit(createAccount)}
+      isLoading={status === 'loading'}
       isValid={isValid}
     >
+      {errorMsg && (
+        <p className="text-red-500 bg-red-500 bg-opacity-10 text-center p-3 mb-3 rounded-md">
+          {errorMsg}
+        </p>
+      )}
       <FormItem>
         <Input
           isRequired
@@ -81,6 +111,14 @@ export default function RegisterPage() {
           errorMessage={errors.confirmPassword?.message}
           label="Password confirmation"
           register={register}
+        />
+      </FormItem>
+      <FormItem>
+        <Input
+          isRequired
+          errorMessage={errors.name?.message}
+          label="Username"
+          {...register('name')}
         />
       </FormItem>
     </BasicForm>

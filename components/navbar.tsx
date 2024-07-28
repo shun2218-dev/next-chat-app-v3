@@ -17,15 +17,14 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { useSession } from 'next-auth/react';
 
 import { siteConfig } from '@/config/site';
 import { ThemeSwitch } from '@/components/theme-switch';
 import { Logo } from '@/components/icons';
-import { checkAuth } from '@/libs/features/auth/authSlice';
-import { useAppSelector } from '@/libs/hooks';
 
 export const Navbar = () => {
-  const isLoggedIn = useAppSelector(checkAuth);
+  const { data: session, status } = useSession();
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
@@ -61,13 +60,14 @@ export const Navbar = () => {
         <NavbarItem className="hidden lg:flex">
           <ThemeSwitch />
         </NavbarItem>
-        {!isLoggedIn && (
+        {!session && (
           <>
             <NavbarItem className="hidden md:flex gap-x-4">
               <Button
                 as={Link}
                 color="primary"
                 href="/login"
+                isDisabled={status === 'loading'}
                 startContent={<LoginIcon />}
                 variant="flat"
               >
@@ -77,6 +77,7 @@ export const Navbar = () => {
                 as={Link}
                 color="primary"
                 href="/register"
+                isDisabled={status === 'loading'}
                 startContent={<PersonAddIcon />}
                 variant="solid"
               >
@@ -85,7 +86,7 @@ export const Navbar = () => {
             </NavbarItem>
           </>
         )}
-        {isLoggedIn && (
+        {session && (
           <>
             <NavbarItem className="hidden md:flex gap-x-4">
               <Button
