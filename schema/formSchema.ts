@@ -22,7 +22,9 @@ const UPPERCASE_CONTAINED = {
   message: 'Must have at least one uppercase character',
 };
 
-const EMAIL_SCHEMA = REQUIRED_ONLY.email();
+const EMAIL_SCHEMA = REQUIRED_ONLY.email(
+  'The format is invalid, please enter your email'
+);
 
 const PASSWORD_SCHEMA = REQUIRED_ONLY.min(...MIN_CHAR(8))
   .regex(NUMBER_CONTAINED.regex, NUMBER_CONTAINED.message)
@@ -47,3 +49,7 @@ export const REGISTER_FORM_SCHEMA = z
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   });
+
+export const CHANGE_EMAIL_SCHEMA = z.object({
+  email: EMAIL_SCHEMA,
+});

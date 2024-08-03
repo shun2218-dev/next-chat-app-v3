@@ -48,7 +48,16 @@ const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    jwt({ token, user }) {
+    jwt({ token, user, trigger, session }) {
+      if (trigger === 'update' && session?.name) {
+        token.name = session.name;
+      }
+      if (trigger === 'update' && session?.email) {
+        token.email = session.email;
+      }
+      if (trigger === 'update' && session?.image) {
+        token.image = session.image;
+      }
       if (user) token.role = user.role;
 
       return token;

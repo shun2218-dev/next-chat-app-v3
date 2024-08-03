@@ -30,3 +30,7 @@ export type SignInPayload = {
 export type SignUpPayload = SignInPayload & {
   name: string;
 };
+
+export type ChangeEmailInputs = {
+  email: string;
+};
