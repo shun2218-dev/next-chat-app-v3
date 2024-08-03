@@ -53,3 +53,7 @@ export const REGISTER_FORM_SCHEMA = z
 export const CHANGE_EMAIL_SCHEMA = z.object({
   email: EMAIL_SCHEMA,
 });
+
+export const CHANGE_PASSWORD_SCHEMA = z.object({
+  password: PASSWORD_SCHEMA,
+});
