@@ -38,3 +38,7 @@ export type ChangeEmailInputs = {
 export type ChangePasswordInputs = {
   password: string;
 };
+
+export type ChangeProfileInputs = {
+  name: string;
+};

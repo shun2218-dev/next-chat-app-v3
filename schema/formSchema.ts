@@ -57,3 +57,7 @@ export const CHANGE_EMAIL_SCHEMA = z.object({
 export const CHANGE_PASSWORD_SCHEMA = z.object({
   password: PASSWORD_SCHEMA,
 });
+
+export const CHANGE_PROFILE_SCHEMA = z.object({
+  name: REQUIRED_ONLY,
+});
