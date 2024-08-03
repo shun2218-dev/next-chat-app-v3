@@ -10,7 +10,10 @@
     "format": "prettier ./**/*.{ts,tsx,json,css,scss} --write",
     "fix": "pnpm run lint && pnpm run format",
     "prepare": "husky",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "prisma:studio": "prisma studio",
+    "prisma:migrate-dev": "prisma migrate dev",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
