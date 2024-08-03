@@ -8,7 +8,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import { title } from '@/components/primitives';
 
-export default function ChangeEmailPage() {
+export default function ChangeEmailCompletePage() {
   return (
     <Card
       isBlurred

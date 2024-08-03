@@ -14,7 +14,7 @@ import { CHANGE_PASSWORD_SCHEMA } from '@/schema/formSchema';
 import FormItem from '@/components/projects/FormItem/FormItem';
 import PasswordToggleButton from '@/components/projects/PasswordToggleButton/PasswordToggleButton';
 
-export default function ChangeEmailPage() {
+export default function ChangePasswordPage() {
   const {
     register,
     handleSubmit,
