@@ -53,3 +53,5 @@ After modifying the `.npmrc` file, you need to run `pnpm install` again to ensur
 ## License
 
 Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+
+![Alt](https://repobeats.axiom.co/api/embed/15242ccd5995aae865c43b63675f6b459a89606d.svg 'Repobeats analytics image')
