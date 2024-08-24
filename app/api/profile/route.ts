@@ -35,6 +35,6 @@ export const GET = async (req: Request, _: NextResponse) => {
     );
   } catch (err) {
     if (err instanceof Error)
-      NextResponse.json({ message: err.message }, { status: 500 });
+      return NextResponse.json({ message: err.message }, { status: 500 });
   }
 };
