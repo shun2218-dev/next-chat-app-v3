@@ -11,6 +11,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useRouter } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { useToggle } from 'react-use';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
@@ -27,9 +28,11 @@ export default function LoginPage() {
   });
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const { data: session } = useSession();
+  const [isLoading, toggleIsLoading] = useToggle(false);
   const router = useRouter();
   const _signIn: SubmitHandler<LoginInputs> = async ({ email, password }) => {
     try {
+      toggleIsLoading(true);
       const res = await signIn('credentials', {
         email,
         password,
@@ -48,6 +51,8 @@ export default function LoginPage() {
     } catch (err) {
       /* eslint-disable no-console */
       console.error(err);
+    } finally {
+      toggleIsLoading(false);
     }
   };
 
@@ -66,6 +71,7 @@ export default function LoginPage() {
       }
       formTitle="Sign In"
       handleSubmit={handleSubmit(_signIn)}
+      isLoading={isLoading}
       isValid={isValid}
     >
       {errorMsg && (

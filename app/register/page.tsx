@@ -11,6 +11,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useRouter } from 'next/navigation';
 import { signIn, useSession } from 'next-auth/react';
 import { useState } from 'react';
+import { useToggle } from 'react-use';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
@@ -26,7 +27,8 @@ export default function RegisterPage() {
     resolver: zodResolver(REGISTER_FORM_SCHEMA),
   });
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
+  const [isLoading, toggleIsLoading] = useToggle(false);
   const router = useRouter();
   const createAccount: SubmitHandler<RegisterInputs> = async ({
     email,
@@ -34,6 +36,7 @@ export default function RegisterPage() {
     name,
   }) => {
     try {
+      toggleIsLoading(true);
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: {
@@ -62,6 +65,8 @@ export default function RegisterPage() {
       }
 
       return { message: 'NG' };
+    } finally {
+      toggleIsLoading(false);
     }
   };
 
@@ -81,7 +86,7 @@ export default function RegisterPage() {
       }
       formTitle="Sign Up"
       handleSubmit={handleSubmit(createAccount)}
-      isLoading={status === 'loading'}
+      isLoading={isLoading}
       isValid={isValid}
     >
       {errorMsg && (
