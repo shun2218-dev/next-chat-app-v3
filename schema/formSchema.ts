@@ -59,5 +59,5 @@ export const CHANGE_PASSWORD_SCHEMA = z.object({
 });
 
 export const CHANGE_PROFILE_SCHEMA = z.object({
-  name: REQUIRED_ONLY,
+  name: USERNAME_SCHEMA,
 });

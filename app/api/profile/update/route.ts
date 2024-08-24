@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import authOptions from '@/libs/authOptions';
 import prisma from '@/libs/db';
 
-export const GET = async (req: Request, _: NextResponse) => {
+export const POST = async (req: Request, _: NextResponse) => {
   try {
     const session = await getServerSession(authOptions);
 
@@ -16,8 +16,13 @@ export const GET = async (req: Request, _: NextResponse) => {
         { status: 401 }
       );
 
-    if (req.method !== 'GET')
+    if (req.method !== 'POST')
       return NextResponse.json({ message: 'Bad Request' }, { status: 405 });
+
+    const { name, imageUrl } = (await req.json()) as {
+      name: string;
+      imageUrl: string;
+    };
 
     const currentUser = await prisma.user.findUnique({
       where: { email: session.user.email },
@@ -29,10 +34,21 @@ export const GET = async (req: Request, _: NextResponse) => {
         { status: 422 }
       );
 
-    return NextResponse.json(
-      { username: currentUser.name, imageUrl: currentUser.image },
-      { status: 200 }
-    );
+    const user = await prisma.user.update({
+      where: { email: session.user.email },
+      data: {
+        name,
+        image: imageUrl,
+      },
+    });
+
+    if (!user)
+      return NextResponse.json(
+        { message: 'Failed to change Profile' },
+        { status: 400 }
+      );
+
+    return NextResponse.json({ username: name, imageUrl }, { status: 200 });
   } catch (err) {
     if (err instanceof Error)
       NextResponse.json({ message: err.message }, { status: 500 });

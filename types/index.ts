@@ -1,5 +1,14 @@
 import { SVGProps } from 'react';
 
+export type Msg = {
+  message: string;
+};
+
+export type UserProfile = {
+  username: string;
+  imageUrl: string;
+};
+
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };

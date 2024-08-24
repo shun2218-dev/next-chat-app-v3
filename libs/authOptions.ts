@@ -58,11 +58,23 @@ const options: NextAuthOptions = {
       if (trigger === 'update' && session?.image) {
         token.image = session.image;
       }
-      if (user) token.role = user.role;
+      if (user) {
+        token.role = user.role;
+      }
 
       return token;
     },
-    session({ session, token }) {
+    async session({ session, token }) {
+      if (token.email) {
+        const user = await prisma.user.findUnique({
+          where: { email: token.email },
+        });
+
+        if (user) {
+          session.user.id = user.id;
+        }
+      }
+
       return {
         ...session,
         user: {

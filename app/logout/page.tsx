@@ -1,31 +1,27 @@
 'use client';
 import type { FormEvent } from 'react';
 
-import { useEffect } from 'react';
 import { Link } from '@nextui-org/link';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { notFound } from 'next/navigation';
 import { User } from '@nextui-org/user';
 import { Button } from '@nextui-org/button';
 import { signOut, useSession } from 'next-auth/react';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
+import { useUserStore } from '@/stores/user';
 
 export default function LogoutPage() {
   const { data: session, status } = useSession();
+  const { username, imageUrl, updateProfile } = useUserStore();
+  const { resetProfile } = useUserStore();
   const handleSubmit = async (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     await signOut({
       callbackUrl: '/login',
     });
+    resetProfile();
   };
-
-  useEffect(() => {
-    if (!session) {
-      notFound();
-    }
-  }, []);
 
   return (
     <BasicForm
@@ -47,7 +43,11 @@ export default function LogoutPage() {
       isValid={true}
     >
       <FormItem>
-        <User className="w-full" name={session?.user.name} />
+        <User
+          avatarProps={{ src: imageUrl }}
+          className="w-full"
+          name={username}
+        />
       </FormItem>
     </BasicForm>
   );
