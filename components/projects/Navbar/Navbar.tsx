@@ -8,24 +8,17 @@ import {
   NavbarItem,
   NavbarMenuItem,
 } from '@nextui-org/navbar';
-import { Button } from '@nextui-org/button';
 import { Link } from '@nextui-org/link';
 import { link as linkStyles } from '@nextui-org/theme';
 import NextLink from 'next/link';
 import clsx from 'clsx';
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { useSession } from 'next-auth/react';
 
+import { NavbarAuthButton } from '@/components/projects/NavbarAuthButton/NavbarAuthButton';
 import { siteConfig } from '@/config/site';
 import { ThemeSwitch } from '@/components/theme-switch';
 import { Logo } from '@/components/icons';
 
 export const Navbar = () => {
-  const { data: session, status } = useSession();
-
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
@@ -60,56 +53,7 @@ export const Navbar = () => {
         <NavbarItem className="hidden lg:flex">
           <ThemeSwitch />
         </NavbarItem>
-        {!session && (
-          <>
-            <NavbarItem className="hidden md:flex gap-x-4">
-              <Button
-                as={Link}
-                color="primary"
-                href="/login"
-                isDisabled={status === 'loading'}
-                startContent={<LoginIcon />}
-                variant="flat"
-              >
-                Sign In
-              </Button>
-              <Button
-                as={Link}
-                color="primary"
-                href="/register"
-                isDisabled={status === 'loading'}
-                startContent={<PersonAddIcon />}
-                variant="solid"
-              >
-                Sign Up
-              </Button>
-            </NavbarItem>
-          </>
-        )}
-        {session && (
-          <>
-            <NavbarItem className="hidden md:flex gap-x-4">
-              <Button
-                as={Link}
-                color="primary"
-                href="/mypage"
-                startContent={<AccountCircleIcon />}
-                variant="solid"
-              >
-                My Page
-              </Button>
-              <Button
-                as={Link}
-                color="danger"
-                href="/logout"
-                startContent={<LogoutIcon />}
-                variant="bordered"
-              >
-                Sign Out
-              </Button>
-            </NavbarItem>
-          </>
-        )}
+        <NavbarAuthButton />
       </NavbarContent>
 
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
