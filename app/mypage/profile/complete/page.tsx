@@ -8,7 +8,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 import { title } from '@/components/primitives';
 
-export default function ChangeEmailCompletePage() {
+export default function ChangeProfileCompletePage() {
   return (
     <Card
       isBlurred
@@ -17,7 +17,7 @@ export default function ChangeEmailCompletePage() {
     >
       <CardHeader className="justify-center">
         <h1 className={title({ size: 'sm', class: 'my-6' })}>
-          Email has been changed
+          Profile has been changed
           <CheckCircleIcon />
         </h1>
       </CardHeader>

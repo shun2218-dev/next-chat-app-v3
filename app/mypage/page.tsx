@@ -4,17 +4,24 @@ import { Card, CardBody, CardHeader } from '@nextui-org/card';
 import { Listbox, ListboxItem, ListboxSection } from '@nextui-org/listbox';
 import { Link } from '@nextui-org/link';
 import { User } from '@nextui-org/user';
-import { useSession } from 'next-auth/react';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
+import { useEffect } from 'react';
 
 import { title } from '@/components/primitives';
 import { IconWrapper } from '@/components/uiParts/IconWrapper/IconWrapper';
+import { useUserStore } from '@/stores/user';
 
 export default function MyPage() {
-  const { data: session } = useSession();
+  const { username, imageUrl, updateProfile } = useUserStore((state) => state);
+
+  useEffect(() => {
+    (async () => {
+      await updateProfile();
+    })();
+  }, []);
 
   return (
     <Card
@@ -26,7 +33,10 @@ export default function MyPage() {
         <h1 className={title({ size: 'sm', class: 'my-6' })}>My Page</h1>
       </CardHeader>
       <CardBody className="w-[90%] mx-auto">
-        <User name={session?.user.name} />
+        <User
+          avatarProps={{ src: imageUrl ?? '', showFallback: true }}
+          name={username}
+        />
         <Listbox aria-label="mypage-menu" className="mt-5">
           <ListboxSection title="Content">
             <ListboxItem

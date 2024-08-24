@@ -1,5 +1,14 @@
 import { SVGProps } from 'react';
 
+export type Msg = {
+  message: string;
+};
+
+export type UserProfile = {
+  username: string;
+  imageUrl: string;
+};
+
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
 };
@@ -37,4 +46,8 @@ export type ChangeEmailInputs = {
 
 export type ChangePasswordInputs = {
   password: string;
+};
+
+export type ChangeProfileInputs = {
+  name: string;
 };
