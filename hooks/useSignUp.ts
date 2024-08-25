@@ -5,11 +5,13 @@ import { useState } from 'react';
 import { useToggle } from 'react-use';
 
 import { useSignIn } from './useSignIn';
+import { useUpdateProfile } from './useUpdatePlofile';
 
 export const useSignUp = () => {
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isLoading, toggleIsLoading] = useToggle(false);
   const { signIn } = useSignIn();
+  const { updateProfile } = useUpdateProfile();
 
   const createAccount: SubmitHandler<RegisterInputs> = async ({
     email,
@@ -31,6 +33,9 @@ export const useSignUp = () => {
       if (res.ok) {
         setErrorMsg(null);
         await signIn({ email, password });
+        if (name) {
+          await updateProfile({ profileImage: null, username: name });
+        }
       }
 
       return { message: 'OK' };

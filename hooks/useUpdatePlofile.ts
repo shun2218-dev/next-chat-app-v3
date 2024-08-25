@@ -24,7 +24,7 @@ export const useUpdateProfile = () => {
       toggleIsLoading(true);
       const imageUrl = await uploadFile('avatars', profileImage);
       const res = await fetch('/api/profile/update', {
-        method: 'POST',
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
