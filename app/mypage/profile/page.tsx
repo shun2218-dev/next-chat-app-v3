@@ -12,15 +12,14 @@ import { useSession } from 'next-auth/react';
 import { Code } from '@nextui-org/code';
 import { Avatar } from '@nextui-org/avatar';
 import { Spinner } from '@nextui-org/spinner';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { useToggle } from 'react-use';
 
 import { ChangeProfileInputs } from '@/types';
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import { CHANGE_PROFILE_SCHEMA } from '@/schema/formSchema';
 import FormItem from '@/components/projects/FormItem/FormItem';
-import { storage } from '@/libs/firebase/client';
 import { useUserStore } from '@/stores/user';
+import { useUploadFile } from '@/hooks/useUploadFile';
 
 export default function ChangeProfilePage() {
   const { data: session } = useSession();
@@ -30,6 +29,7 @@ export default function ChangeProfilePage() {
   const profileImageRef = useRef<HTMLInputElement | null>(null);
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [isLoading, toggleIsLoading] = useToggle(false);
+  const { uploadFile } = useUploadFile();
 
   const {
     register,
@@ -44,40 +44,18 @@ export default function ChangeProfilePage() {
   });
   const router = useRouter();
 
-  const uploadImage = async (image: File | null): Promise<string> => {
-    try {
-      if (!image) throw new Error('Image is required');
-
-      if (!session) throw new Error('Invalid session');
-
-      const storageRef = ref(
-        storage,
-        `avatars/${session.user.id}/${session.user.id}_${Date.now()}_${image.name}`
-      );
-
-      const file = await uploadBytes(storageRef, image);
-
-      const imageUrl = await getDownloadURL(file.ref);
-
-      return imageUrl;
-    } catch (e) {
-      console.error(e);
-      throw new Error('Failed to upload profile image');
-    }
-  };
-
   const changeProfile: SubmitHandler<ChangeProfileInputs> = async ({
     name,
   }) => {
     try {
       toggleIsLoading(true);
-      const imageUrl = await uploadImage(profileImage);
+      const fileUrl = await uploadFile('avatars', profileImage);
       const res = await fetch('/api/profile/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, imageUrl }),
+        body: JSON.stringify({ name, imageUrl: fileUrl }),
       });
 
       if (!res.ok) throw new Error('Failed to change username');
