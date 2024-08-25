@@ -15,11 +15,13 @@ import { IconWrapper } from '@/components/uiParts/IconWrapper/IconWrapper';
 import { useUserStore } from '@/stores/user';
 
 export default function MyPage() {
-  const { username, imageUrl, updateProfile } = useUserStore((state) => state);
+  const { username, imageUrl, revalidateProfile } = useUserStore(
+    (state) => state
+  );
 
   useEffect(() => {
     (async () => {
-      await updateProfile();
+      await revalidateProfile();
     })();
   }, []);
 

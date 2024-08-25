@@ -6,7 +6,7 @@ import { Msg, UserProfile } from '@/types';
 type State = {
   username: string;
   imageUrl: string;
-  updateProfile: () => Promise<void>;
+  revalidateProfile: () => Promise<void>;
   resetProfile: () => void;
 };
 
@@ -16,7 +16,7 @@ export const useUserStore = create<State>()(
       (set) => ({
         username: '',
         imageUrl: '',
-        updateProfile: async () => {
+        revalidateProfile: async () => {
           try {
             const res = await fetch('/api/profile', {
               method: 'GET',
