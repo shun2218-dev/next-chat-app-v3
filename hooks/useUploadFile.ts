@@ -14,7 +14,7 @@ export const useUploadFile = () => {
   ): Promise<string> => {
     try {
       toggleIsLoading(true);
-      if (!uploadFile) throw new Error('uploadFile is required');
+      if (!uploadFile) throw new Error('Upload file is required');
 
       if (!session) throw new Error('Invalid session');
 

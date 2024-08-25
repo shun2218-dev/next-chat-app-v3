@@ -12,25 +12,20 @@ import { useSession } from 'next-auth/react';
 import { Code } from '@nextui-org/code';
 import { Avatar } from '@nextui-org/avatar';
 import { Spinner } from '@nextui-org/spinner';
-import { useToggle } from 'react-use';
 
 import { ChangeProfileInputs } from '@/types';
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import { CHANGE_PROFILE_SCHEMA } from '@/schema/formSchema';
 import FormItem from '@/components/projects/FormItem/FormItem';
 import { useUserStore } from '@/stores/user';
-import { useUploadFile } from '@/hooks/useUploadFile';
+import { useUpdateProfile } from '@/hooks/useUpdatePlofile';
 
 export default function ChangeProfilePage() {
-  const { data: session } = useSession();
-  const { username: _username, imageUrl, updateProfile } = useUserStore();
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [username, setUsername] = useState<string | null>(null);
-  const profileImageRef = useRef<HTMLInputElement | null>(null);
-  const [profileImage, setProfileImage] = useState<File | null>(null);
-  const [isLoading, toggleIsLoading] = useToggle(false);
-  const { uploadFile } = useUploadFile();
-
+  const previewImageRef = useRef<HTMLInputElement | null>(null);
+  const [previewImage, setPreviewImage] = useState<File | null>(null);
+  const router = useRouter();
+  const { data: session } = useSession();
   const {
     register,
     handleSubmit,
@@ -42,48 +37,27 @@ export default function ChangeProfilePage() {
       name: username ?? '',
     },
   });
-  const router = useRouter();
+  const { username: _username, imageUrl } = useUserStore();
+  const { updateProfile, isLoading, errorMsg } = useUpdateProfile();
 
   const changeProfile: SubmitHandler<ChangeProfileInputs> = async ({
     name,
   }) => {
-    try {
-      toggleIsLoading(true);
-      const fileUrl = await uploadFile('avatars', profileImage);
-      const res = await fetch('/api/profile/update', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, imageUrl: fileUrl }),
-      });
+    const res = await updateProfile({
+      profileImage: previewImage,
+      username: name,
+    });
 
-      if (!res.ok) throw new Error('Failed to change username');
-
-      setErrorMsg(null);
-
-      await updateProfile();
-
+    if (res.message === 'OK') {
       router.push('/mypage/profile/complete');
-
-      return { message: 'OK' };
-    } catch (err) {
-      if (err instanceof Error) {
-        console.error(err);
-        setErrorMsg(err.message);
-      }
-
-      return { message: 'NG' };
-    } finally {
-      toggleIsLoading(false);
     }
   };
 
-  const previewImage = (e: ChangeEvent<HTMLInputElement>) => {
+  const changePreviewImage = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
 
-      setProfileImage(file);
+      setPreviewImage(file);
     }
   };
 
@@ -118,15 +92,15 @@ export default function ChangeProfilePage() {
             className="mx-auto"
             name={username === null ? '' : username}
             size="lg"
-            src={profileImage ? URL.createObjectURL(profileImage) : imageUrl}
+            src={previewImage ? URL.createObjectURL(previewImage) : imageUrl}
           />
           <input
-            ref={profileImageRef}
+            ref={previewImageRef}
             accept="image/*"
             className="hidden"
             id="profileImage"
             type="file"
-            onChange={previewImage}
+            onChange={changePreviewImage}
           />
         </label>
       </FormItem>
