@@ -1,6 +1,5 @@
 'use client';
 
-import type { SubmitHandler } from 'react-hook-form';
 import type { LoginInputs } from '@/types';
 
 import { Input } from '@nextui-org/input';
@@ -9,14 +8,14 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@nextui-org/link';
 import LoginIcon from '@mui/icons-material/Login';
 import { useRouter } from 'next/navigation';
-import { signIn, useSession } from 'next-auth/react';
-import { useEffect, useState } from 'react';
-import { useToggle } from 'react-use';
+import { useSession } from 'next-auth/react';
+import { useEffect } from 'react';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
 import PasswordInput from '@/components/projects/PasswordInput/PasswordInput';
 import { LOGIN_FORM_SCHEMA } from '@/schema/formSchema';
+import { useSignIn } from '@/hooks/useSignIn';
 
 export default function LoginPage() {
   const {
@@ -26,35 +25,9 @@ export default function LoginPage() {
   } = useForm<LoginInputs>({
     resolver: zodResolver(LOGIN_FORM_SCHEMA),
   });
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const { data: session } = useSession();
-  const [isLoading, toggleIsLoading] = useToggle(false);
   const router = useRouter();
-  const _signIn: SubmitHandler<LoginInputs> = async ({ email, password }) => {
-    try {
-      toggleIsLoading(true);
-      const res = await signIn('credentials', {
-        email,
-        password,
-        callbackUrl: '/mypage',
-      });
-
-      if (!res) throw new Error('Failed to sign in');
-
-      if (res.ok) {
-        setErrorMsg(null);
-      }
-
-      if (res.error) {
-        setErrorMsg(res.error);
-      }
-    } catch (err) {
-      /* eslint-disable no-console */
-      console.error(err);
-    } finally {
-      toggleIsLoading(false);
-    }
-  };
+  const { signIn, isLoading, errorMsg } = useSignIn();
 
   useEffect(() => {
     if (session) {
@@ -70,7 +43,7 @@ export default function LoginPage() {
         <Link href="/register">Don&apos;t have an account? Sign up here.</Link>
       }
       formTitle="Sign In"
-      handleSubmit={handleSubmit(_signIn)}
+      handleSubmit={handleSubmit(signIn)}
       isLoading={isLoading}
       isValid={isValid}
     >
