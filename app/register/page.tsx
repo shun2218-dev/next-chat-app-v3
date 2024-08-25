@@ -1,6 +1,5 @@
 'use client';
 
-import type { SubmitHandler } from 'react-hook-form';
 import type { RegisterInputs } from '@/types';
 
 import { Input } from '@nextui-org/input';
@@ -9,14 +8,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@nextui-org/link';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useRouter } from 'next/navigation';
-import { signIn, useSession } from 'next-auth/react';
-import { useState } from 'react';
-import { useToggle } from 'react-use';
+import { useSession } from 'next-auth/react';
 
 import BasicForm from '@/components/projects/BasicForm/BasicForm';
 import FormItem from '@/components/projects/FormItem/FormItem';
 import PasswordInput from '@/components/projects/PasswordInput/PasswordInput';
 import { REGISTER_FORM_SCHEMA } from '@/schema/formSchema';
+import { useSignUp } from '@/hooks/useSignUp';
 
 export default function RegisterPage() {
   const {
@@ -26,49 +24,9 @@ export default function RegisterPage() {
   } = useForm<RegisterInputs>({
     resolver: zodResolver(REGISTER_FORM_SCHEMA),
   });
-  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const { data: session } = useSession();
-  const [isLoading, toggleIsLoading] = useToggle(false);
   const router = useRouter();
-  const createAccount: SubmitHandler<RegisterInputs> = async ({
-    email,
-    password,
-    name,
-  }) => {
-    try {
-      toggleIsLoading(true);
-      const res = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password, name }),
-      });
-
-      if (!res.ok) throw new Error('Failed to create new account');
-
-      if (res.ok) {
-        setErrorMsg(null);
-        await signIn('credentials', {
-          email,
-          password,
-          callbackUrl: '/mypage',
-        });
-      }
-
-      return { message: 'OK' };
-    } catch (err) {
-      if (err instanceof Error) {
-        /* eslint-disable no-console */
-        console.error(err);
-        setErrorMsg(err.message);
-      }
-
-      return { message: 'NG' };
-    } finally {
-      toggleIsLoading(false);
-    }
-  };
+  const { createAccount, isLoading, errorMsg } = useSignUp();
 
   if (session) {
     router.push('/mypage');
