@@ -18,11 +18,21 @@ model User {
   sessions          Session[]
   // Optional for WebAuthn support
   Authenticator     Authenticator[]
+  friend            Friend[]
   role              Role            @default(USER)
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
 }
  
+model Friend {
+  id                String          @id @default(cuid())
+  userId            String
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  roomId            String
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
 model Account {
   userId            String
   type              String
@@ -39,7 +49,7 @@ model Account {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
  
   @@id([provider, providerAccountId])
 }
