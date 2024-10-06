@@ -4,6 +4,7 @@ import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 import { Msg, UserProfile } from '@/types';
 
 type State = {
+  userId: string;
   username: string;
   imageUrl: string;
   revalidateProfile: () => Promise<void>;
@@ -14,6 +15,7 @@ export const useUserStore = create<State>()(
   devtools(
     persist(
       (set) => ({
+        userId: '',
         username: '',
         imageUrl: '',
         revalidateProfile: async () => {
@@ -39,7 +41,12 @@ export const useUserStore = create<State>()(
           }
         },
         resetProfile: () =>
-          set((state) => ({ ...state, username: '', imageUrl: '' })),
+          set((state) => ({
+            ...state,
+            userId: '',
+            username: '',
+            imageUrl: '',
+          })),
       }),
       { name: 'profile', storage: createJSONStorage(() => sessionStorage) }
     )

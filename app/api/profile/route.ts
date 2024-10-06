@@ -30,10 +30,14 @@ export const GET = async (req: Request, _: NextResponse) => {
       );
 
     return NextResponse.json(
-      { username: currentUser.name, imageUrl: currentUser.image },
+      {
+        userId: currentUser.id,
+        username: currentUser.name,
+        imageUrl: currentUser.image,
+      },
       { status: 200 }
     );
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof Error)
       return NextResponse.json({ message: err.message }, { status: 500 });
   }
