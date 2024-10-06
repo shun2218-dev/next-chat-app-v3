@@ -40,7 +40,7 @@ export const POST = async (req: Request, _: NextResponse) => {
       );
 
     return NextResponse.redirect(new URL('/mypage/email/complete', req.url));
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof Error)
       NextResponse.json({ message: err.message }, { status: 500 });
   }
