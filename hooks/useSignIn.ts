@@ -27,8 +27,10 @@ export const useSignIn = () => {
       if (res.error) {
         setErrorMsg(res.error);
       }
-    } catch (err) {
-      console.error(err);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err.message);
+      }
     } finally {
       toggleIsLoading(false);
     }

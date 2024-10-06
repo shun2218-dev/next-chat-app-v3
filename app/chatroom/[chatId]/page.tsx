@@ -46,10 +46,10 @@ const ChatRoomWithSomeone: FC<Props> = ({ params }) => {
       );
 
       setMessage(''); // Clear the input field after sending the message
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error(error.message);
-        setErrorMsg(error.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err.message);
+        setErrorMsg(err.message);
       }
     }
   };
