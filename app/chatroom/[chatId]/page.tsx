@@ -49,6 +49,7 @@ const ChatRoomWithSomeone: FC<Props> = ({ params }) => {
     } catch (error: unknown) {
       if (error instanceof Error) {
         console.error(error.message);
+        setErrorMsg(error.message);
       }
     }
   };
