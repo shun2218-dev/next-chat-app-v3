@@ -8,16 +8,20 @@ import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlin
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
-import { useEffect } from 'react';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { Fragment, useEffect } from 'react';
+import { Tooltip } from '@nextui-org/tooltip';
+import { useCopyToClipboard } from 'react-use';
 
+import { useUserStore } from '@/stores/user';
 import { title } from '@/components/primitives';
 import { IconWrapper } from '@/components/uiParts/IconWrapper/IconWrapper';
-import { useUserStore } from '@/stores/user';
 
 export default function MyPage() {
-  const { username, imageUrl, revalidateProfile } = useUserStore(
+  const { userId, username, imageUrl, revalidateProfile } = useUserStore(
     (state) => state
   );
+  const [copyState, copy] = useCopyToClipboard();
 
   useEffect(() => {
     (async () => {
@@ -35,10 +39,25 @@ export default function MyPage() {
         <h1 className={title({ size: 'sm', class: 'my-6' })}>My Page</h1>
       </CardHeader>
       <CardBody className="w-[90%] mx-auto">
-        <User
-          avatarProps={{ src: imageUrl ?? '', showFallback: true }}
-          name={username}
-        />
+        <Tooltip content={'Copy userId to clipboard'} placement="top-end">
+          <User
+            avatarProps={{ src: imageUrl ?? '', showFallback: true }}
+            description={
+              <p className="text-sm text-foreground-500 flex items-center gap-x-1">
+                {copyState.value ? (
+                  <Fragment>
+                    <CheckCircleOutlineIcon color="success" fontSize="small" />
+                    UserId copied to clipboard!
+                  </Fragment>
+                ) : (
+                  ''
+                )}
+              </p>
+            }
+            name={username}
+            onClick={() => copy(userId)}
+          />
+        </Tooltip>
         <Listbox aria-label="mypage-menu" className="mt-5">
           <ListboxSection title="Content">
             <ListboxItem

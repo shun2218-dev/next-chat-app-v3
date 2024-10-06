@@ -20,21 +20,54 @@ export const GET = async (req: Request, _: NextResponse) => {
       return NextResponse.json({ message: 'Bad Request' }, { status: 405 });
 
     const currentUser = await prisma.user.findUnique({
-      where: { email: session.user.email },
+      where: {
+        email: session.user.email,
+      },
     });
 
-    if (!currentUser)
+    const friendOfCurrentUser = await prisma.user.findUnique({
+      where: {
+        email: session.user.email,
+      },
+      select: {
+        friend: true,
+      },
+    });
+
+    if (!friendOfCurrentUser || !currentUser)
       return NextResponse.json(
         { message: 'Not found your account' },
         { status: 422 }
       );
 
-    return NextResponse.json(
-      {
-        userId: currentUser.id,
-        username: currentUser.name,
-        imageUrl: currentUser.image,
+    const roomIds = friendOfCurrentUser.friend.map(
+      (friendUser) => friendUser.roomId
+    );
+
+    const friendUsers = await prisma.friend.findMany({
+      where: {
+        roomId: {
+          in: roomIds,
+        },
+        NOT: {
+          userId: currentUser.id,
+        },
       },
+      select: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            image: true,
+            name: true,
+          },
+        },
+        roomId: true,
+      },
+    });
+
+    return NextResponse.json(
+      friendUsers.map((friend) => ({ ...friend.user, chatId: friend.roomId })),
       { status: 200 }
     );
   } catch (err: unknown) {

@@ -12,9 +12,9 @@ import FormItem from '@/components/projects/FormItem/FormItem';
 import { useUserStore } from '@/stores/user';
 
 export default function LogoutPage() {
-  const { data: session, status } = useSession();
-  const { username, imageUrl, updateProfile } = useUserStore();
-  const { resetProfile } = useUserStore();
+  const { status } = useSession();
+  const { username, imageUrl, resetProfile } = useUserStore();
+
   const handleSubmit = async (e: FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     await signOut({

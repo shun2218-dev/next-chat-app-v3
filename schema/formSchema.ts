@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const REQUIRED_ONLY = z.string().min(1, 'This field is required');
+export const REQUIRED_ONLY = z.string().min(1, 'This field is required');
 
 const MIN_CHAR = (min: number): [number, string] => [
   min,

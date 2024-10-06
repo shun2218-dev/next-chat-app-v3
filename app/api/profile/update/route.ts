@@ -66,7 +66,7 @@ export const PATCH = async (req: Request, _: NextResponse) => {
       );
 
     return new Response(null, { status: 204 });
-  } catch (err) {
+  } catch (err: unknown) {
     if (err instanceof Error)
       return NextResponse.json({ message: err.message }, { status: 500 });
   }

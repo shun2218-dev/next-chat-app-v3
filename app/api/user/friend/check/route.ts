@@ -16,11 +16,28 @@ export const GET = async (req: Request, _: NextResponse) => {
         { status: 401 }
       );
 
+    const { searchParams } = new URL(req.url);
+    const friendId = searchParams.get('friendId');
+
+    if (friendId === null) {
+      return NextResponse.json(
+        {
+          message: 'Error: Unable to process the request due to invalid input',
+        },
+        { status: 400 }
+      );
+    }
+
     if (req.method !== 'GET')
       return NextResponse.json({ message: 'Bad Request' }, { status: 405 });
 
     const currentUser = await prisma.user.findUnique({
-      where: { email: session.user.email },
+      where: {
+        email: session.user.email,
+      },
+      select: {
+        friend: true,
+      },
     });
 
     if (!currentUser)
@@ -30,11 +47,7 @@ export const GET = async (req: Request, _: NextResponse) => {
       );
 
     return NextResponse.json(
-      {
-        userId: currentUser.id,
-        username: currentUser.name,
-        imageUrl: currentUser.image,
-      },
+      currentUser.friend.some(({ id }) => id.includes(friendId)),
       { status: 200 }
     );
   } catch (err: unknown) {
