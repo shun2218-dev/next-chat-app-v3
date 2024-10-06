@@ -3,12 +3,13 @@
 import type { Message } from '@/types';
 import type { FC } from 'react';
 
-import { useCallback } from 'react';
+import { Fragment, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { Timestamp } from 'firebase/firestore';
 
 import { useRealTimeChat } from '@/hooks/useRealTimeChat';
 import { ChatBubble } from '@/components/uiParts/ChatBubble/ChatBubble';
+import { ChatDate } from '@/components/uiParts/ChatDate/ChatDate';
 
 type Props = {
   chatId: string;
@@ -22,38 +23,57 @@ export const Chat: FC<Props> = ({ chatId }) => {
     return senderUid === session?.user.id ? 'own' : 'other';
   }, []);
 
-  const formatTime = (timestamp: Timestamp) => {
+  const formatTime = useCallback((timestamp: Timestamp) => {
     const [hh, mm] = timestamp.toDate().toLocaleTimeString().split(':');
 
     return `${hh}:${mm}`;
-  };
+  }, []);
+
+  const shouldDisplayDate = useCallback(
+    (
+      currentMessageTimestamp: Timestamp,
+      previousMessageTimestamp: Timestamp
+    ) => {
+      return (
+        currentMessageTimestamp.toDate().toLocaleDateString() !==
+        previousMessageTimestamp.toDate().toLocaleDateString()
+      );
+    },
+    []
+  );
 
   return (
     <div className="flex flex-col space-y-4 p-4">
       {messages.map(
-        (msg: Message) =>
+        (msg: Message, index) =>
           msg.timestamp !== null && (
-            <div
-              key={msg.timestamp.seconds}
-              className={[
-                'flex',
-                whichMsg(msg.senderUid) === 'own'
-                  ? 'justify-end'
-                  : 'justify-start',
-                'gap-x-2',
-              ].join(' ')}
-            >
-              {whichMsg(msg.senderUid) === 'own' && (
-                <span className="self-end">{formatTime(msg.timestamp)}</span>
-              )}
-              <ChatBubble
-                message={msg.content}
-                sender={whichMsg(msg.senderUid)}
-              />
-              {whichMsg(msg.senderUid) === 'other' && (
-                <span className="self-end">{formatTime(msg.timestamp)}</span>
-              )}
-            </div>
+            <Fragment key={msg.timestamp.seconds}>
+              {(index === 0 ||
+                shouldDisplayDate(
+                  msg.timestamp,
+                  messages[index - 1].timestamp
+                )) && <ChatDate timestamp={msg.timestamp} />}
+              <div
+                className={[
+                  'flex',
+                  whichMsg(msg.senderUid) === 'own'
+                    ? 'justify-end'
+                    : 'justify-start',
+                  'gap-x-2',
+                ].join(' ')}
+              >
+                {whichMsg(msg.senderUid) === 'own' && (
+                  <span className="self-end">{formatTime(msg.timestamp)}</span>
+                )}
+                <ChatBubble
+                  message={msg.content}
+                  sender={whichMsg(msg.senderUid)}
+                />
+                {whichMsg(msg.senderUid) === 'other' && (
+                  <span className="self-end">{formatTime(msg.timestamp)}</span>
+                )}
+              </div>
+            </Fragment>
           )
       )}
     </div>
