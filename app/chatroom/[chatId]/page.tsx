@@ -46,17 +46,17 @@ const ChatRoomWithSomeone: FC<Props> = ({ params }) => {
       );
 
       setMessage(''); // Clear the input field after sending the message
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        console.error(error.message);
-        setErrorMsg(error.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(err.message);
+        setErrorMsg(err.message);
       }
     }
   };
 
   return (
     <div className="ChatRoomWithSomeone flex flex-col h-full">
-      <div className="flex-auto ChatRoomWithSomeone__messageArea">
+      <div className="flex-auto ChatRoomWithSomeone__messageArea h-[90%] md:h-[95%]">
         <Chat chatId={params.chatId} />
       </div>
       <div className="ChatRoomWithSomeone__inputArea">

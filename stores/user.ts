@@ -36,8 +36,10 @@ export const useUserStore = create<State>()(
             const profile = (await res.json()) as UserProfile;
 
             set({ ...profile });
-          } catch (err) {
-            console.error(err);
+          } catch (err: unknown) {
+            if (err instanceof Error) {
+              console.error(err.message);
+            }
           }
         },
         resetProfile: () =>
