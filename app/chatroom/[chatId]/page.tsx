@@ -56,7 +56,7 @@ const ChatRoomWithSomeone: FC<Props> = ({ params }) => {
 
   return (
     <div className="ChatRoomWithSomeone flex flex-col h-full">
-      <div className="flex-auto ChatRoomWithSomeone__messageArea">
+      <div className="flex-auto ChatRoomWithSomeone__messageArea h-[90%] md:h-[95%]">
         <Chat chatId={params.chatId} />
       </div>
       <div className="ChatRoomWithSomeone__inputArea">
