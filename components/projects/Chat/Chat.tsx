@@ -35,6 +35,11 @@ export const Chat: FC<Props> = ({ chatId }) => {
     return `${hh}:${mm}`;
   }, []);
 
+  const isOwnMessage = useCallback(
+    (senderUid: string) => whichMsg(senderUid) === 'own',
+    []
+  );
+
   const shouldDisplayDate = useCallback(
     (
       currentMessageTimestamp: Timestamp,
@@ -67,20 +72,18 @@ export const Chat: FC<Props> = ({ chatId }) => {
               <div
                 className={[
                   'flex',
-                  whichMsg(msg.senderUid) === 'own'
-                    ? 'justify-end'
-                    : 'justify-start',
+                  isOwnMessage(msg.senderUid) ? 'justify-end' : 'justify-start',
                   'gap-x-2',
                 ].join(' ')}
               >
-                {whichMsg(msg.senderUid) === 'own' && (
+                {isOwnMessage(msg.senderUid) && (
                   <span className="self-end">{formatTime(msg.timestamp)}</span>
                 )}
                 <ChatBubble
                   message={msg.content}
                   sender={whichMsg(msg.senderUid)}
                 />
-                {whichMsg(msg.senderUid) === 'other' && (
+                {!isOwnMessage(msg.senderUid) && (
                   <span className="self-end">{formatTime(msg.timestamp)}</span>
                 )}
               </div>
