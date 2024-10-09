@@ -13,16 +13,19 @@ import {
 } from '@nextui-org/modal';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { QRCodeSVG } from 'qrcode.react';
+import { useSession } from 'next-auth/react';
 
 import { REQUIRED_ONLY } from '@/schema/formSchema';
 import { useFriend } from '@/hooks/useFriend';
 
 export const AddFriend = () => {
+  const { data: session } = useSession();
   const router = useRouter();
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
   } = useForm<{ friendId: string }>({
     resolver: zodResolver(z.object({ friendId: REQUIRED_ONLY })),
@@ -64,6 +67,12 @@ export const AddFriend = () => {
                 Enter the friend ID
               </ModalHeader>
               <ModalBody>
+                {session?.user && (
+                  <div className="flex justify-center mb-4">
+                    <QRCodeSVG value={session?.user.id} />
+                  </div>
+                )}
+
                 <Input
                   {...register('friendId')}
                   errorMessage={errors.friendId?.message}
