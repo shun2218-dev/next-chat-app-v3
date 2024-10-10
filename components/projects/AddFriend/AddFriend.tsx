@@ -47,6 +47,7 @@ export const AddFriend = () => {
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
+        // eslint-disable-next-line no-console
         console.error(err.message);
       }
     } finally {
