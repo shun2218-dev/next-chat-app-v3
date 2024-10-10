@@ -1,4 +1,4 @@
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@nextui-org/button';
@@ -13,14 +13,15 @@ import {
 } from '@nextui-org/modal';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { QRCodeSVG } from 'qrcode.react';
-import { useSession } from 'next-auth/react';
 
-import { REQUIRED_ONLY } from '@/schema/formSchema';
+import { MyQRCode } from '../QRCodeImage/MyQRCode';
+import { QRSwitch } from '../QRSwitch/QRSwitch';
+import { QRCodeScanner } from '../QRCodeScanner/QRCodeScanner';
+
 import { useFriend } from '@/hooks/useFriend';
+import { REQUIRED_ONLY } from '@/schema/formSchema';
 
 export const AddFriend = () => {
-  const { data: session } = useSession();
   const router = useRouter();
   const {
     register,
@@ -32,6 +33,7 @@ export const AddFriend = () => {
   });
   const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
   const { addFriend, getFriendUsers } = useFriend();
+  const [switchState, setSwitchState] = useState(false);
 
   const onSubmit: SubmitHandler<{ friendId: string }> = async ({
     friendId,
@@ -54,6 +56,7 @@ export const AddFriend = () => {
 
   useEffect(() => {
     reset();
+    setSwitchState(false);
   }, [isOpen]);
 
   return (
@@ -67,25 +70,30 @@ export const AddFriend = () => {
                 Enter the friend ID
               </ModalHeader>
               <ModalBody>
-                {session?.user && (
-                  <div className="flex justify-center mb-4">
-                    <QRCodeSVG value={session?.user.id} />
-                  </div>
-                )}
+                <QRSwitch onChange={(e) => setSwitchState(e.target.checked)} />
+                <div className="flex justify-center mb-4">
+                  {switchState ? <QRCodeScanner /> : <MyQRCode />}
+                </div>
 
-                <Input
-                  {...register('friendId')}
-                  errorMessage={errors.friendId?.message}
-                  isInvalid={!!errors.friendId?.message}
-                />
+                {!switchState && (
+                  <Input
+                    {...register('friendId')}
+                    errorMessage={errors.friendId?.message}
+                    isInvalid={!!errors.friendId?.message}
+                  />
+                )}
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" type="submit">
-                  Add
-                </Button>
+                {!switchState && (
+                  <Fragment>
+                    <Button color="danger" variant="light" onPress={onClose}>
+                      Close
+                    </Button>
+                    <Button color="primary" type="submit">
+                      Add
+                    </Button>
+                  </Fragment>
+                )}
               </ModalFooter>
             </form>
           )}
