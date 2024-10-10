@@ -13,7 +13,7 @@ export const QRCodeScanner = () => {
   useEffect(() => {
     if (session) {
       (async () => {
-        await addFriend(session.user.id);
+        await addFriend(result);
       })();
     }
   }, [result]);
