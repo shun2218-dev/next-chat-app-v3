@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import { Spinner } from '@nextui-org/spinner';
 
 import { useQRCodeScanner } from '@/hooks/useQRCodeScanner';
 import { useFriend } from '@/hooks/useFriend';
@@ -45,10 +45,8 @@ export const QRCodeScanner = () => {
         </div>
       )}
       {result && (
-        <div className="flex justify-center">
-          <Link href={result}>
-            <button>push</button>
-          </Link>
+        <div className="flex justify-center items-center">
+          <Spinner />
         </div>
       )}
       {error && <p className="text-center text-xs text-red-500">{error}</p>}
