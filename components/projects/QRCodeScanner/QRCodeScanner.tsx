@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { Spinner } from '@nextui-org/spinner';
+import { useRouter } from 'next/navigation';
 
 import { useQRCodeScanner } from '@/hooks/useQRCodeScanner';
 import { useFriend } from '@/hooks/useFriend';
@@ -9,11 +10,13 @@ export const QRCodeScanner = () => {
   const { data: session } = useSession();
   const { videoRef, canvasRef, result, error } = useQRCodeScanner();
   const { addFriend } = useFriend();
+  const router = useRouter();
 
   useEffect(() => {
     if (session) {
       (async () => {
         await addFriend(result);
+        router.refresh();
       })();
     }
   }, [result]);
