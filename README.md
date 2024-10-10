@@ -13,6 +13,8 @@ This is a template for creating applications using Next.js 14 (app directory) an
 - [TypeScript](https://www.typescriptlang.org/)
 - [Framer Motion](https://www.framer.com/motion/)
 - [next-themes](https://github.com/pacocoursey/next-themes)
+- [Auth.js](https://authjs.dev/)
+- [Zustand](https://zustand-demo.pmnd.rs/)
 
 ## How to Use
 
@@ -51,3 +53,5 @@ After modifying the `.npmrc` file, you need to run `pnpm install` again to ensur
 ## License
 
 Licensed under the [MIT license](https://github.com/nextui-org/next-app-template/blob/main/LICENSE).
+
+![Alt](https://repobeats.axiom.co/api/embed/15242ccd5995aae865c43b63675f6b459a89606d.svg 'Repobeats analytics image')
