@@ -13,7 +13,7 @@ export const QRCodeScanner = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (session) {
+    if (session && result) {
       (async () => {
         await addFriend(result);
         router.refresh();
