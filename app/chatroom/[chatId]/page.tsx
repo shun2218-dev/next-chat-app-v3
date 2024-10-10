@@ -48,6 +48,7 @@ const ChatRoomWithSomeone: FC<Props> = ({ params }) => {
       setMessage(''); // Clear the input field after sending the message
     } catch (err: unknown) {
       if (err instanceof Error) {
+        // eslint-disable-next-line no-console
         console.error(err.message);
         setErrorMsg(err.message);
       }
