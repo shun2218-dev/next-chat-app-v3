@@ -1,11 +1,9 @@
 import type { FriendUser, MsgWithRoomId } from '@/types';
 
 import { useCallback, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import { useToggle } from 'react-use';
 
 export const useFriend = () => {
-  const { data: session } = useSession();
   const [friendUsers, setFriendUsers] = useState<FriendUser[] | null>(null);
   const [checkFriendIsLoading, toggleCheckFriendLoading] = useToggle(false);
   const [addFriendIsLoading, toggleAddFriendLoading] = useToggle(false);
