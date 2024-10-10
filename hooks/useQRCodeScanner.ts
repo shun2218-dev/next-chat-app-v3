@@ -67,6 +67,7 @@ export const useQRCodeScanner = () => {
         }
       } catch (err: unknown) {
         if (err instanceof Error) {
+          // eslint-disable-next-line no-console
           console.error('Error accessing media devices:', err);
         }
       }
