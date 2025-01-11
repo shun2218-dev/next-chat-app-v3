@@ -89,7 +89,7 @@ export default function ChangeProfilePage() {
         <label htmlFor="profileImage">
           <Avatar
             showFallback
-            className="mx-auto"
+            className="mx-auto cursor-pointer"
             name={username === null ? '' : username}
             size="lg"
             src={previewImage ? URL.createObjectURL(previewImage) : imageUrl}

@@ -9,9 +9,7 @@ import {
   NavbarMenuItem,
 } from '@nextui-org/navbar';
 import { Link } from '@nextui-org/link';
-import { link as linkStyles } from '@nextui-org/theme';
 import NextLink from 'next/link';
-import clsx from 'clsx';
 
 import { NavbarAuthButton } from '@/components/projects/NavbarAuthButton/NavbarAuthButton';
 import { siteConfig } from '@/config/site';
@@ -25,10 +23,10 @@ export const Navbar = () => {
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
             <Logo />
-            <p className="font-bold text-inherit">ACME</p>
+            <p className="font-bold text-inherit">Next Chat App v3</p>
           </NextLink>
         </NavbarBrand>
-        <ul className="hidden lg:flex gap-4 justify-start ml-2">
+        {/* <ul className="hidden lg:flex gap-4 justify-start ml-2">
           {siteConfig.navItems.map((item) => (
             <NavbarItem key={item.href}>
               <NextLink
@@ -43,7 +41,7 @@ export const Navbar = () => {
               </NextLink>
             </NavbarItem>
           ))}
-        </ul>
+        </ul> */}
       </NavbarContent>
 
       <NavbarContent
@@ -67,13 +65,13 @@ export const Navbar = () => {
             <NavbarMenuItem key={`${item}-${index}`}>
               <Link
                 color={
-                  index === 2
+                  index === 0
                     ? 'primary'
                     : index === siteConfig.navMenuItems.length - 1
                       ? 'danger'
                       : 'foreground'
                 }
-                href="#"
+                href={item.href}
                 size="lg"
               >
                 {item.label}
