@@ -1,9 +1,10 @@
 'use client';
 import type { FC } from 'react';
-import type { Message } from '@/types';
+import type { Message, Msg } from '@/types';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Input } from '@nextui-org/input';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SendIcon from '@mui/icons-material/Send';
 import { Button } from '@nextui-org/button';
 import { useSession } from 'next-auth/react';
@@ -13,6 +14,9 @@ import {
   serverTimestamp,
   Timestamp,
 } from 'firebase/firestore';
+import { useRouter } from 'next/navigation';
+import { useToggle } from 'react-use';
+import { Skeleton } from '@nextui-org/skeleton';
 
 import { IconWrapper } from '@/components/uiParts/IconWrapper/IconWrapper';
 import { db } from '@/libs/firebase/client';
@@ -23,9 +27,12 @@ type Props = {
 };
 
 const ChatRoomWithSomeone: FC<Props> = ({ params }) => {
+  const router = useRouter();
   const { data: session } = useSession();
   const [message, setMessage] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [partnerName, setPartnerName] = useState<string | null>(null);
+  const [isLoading, toggleIsLoading] = useToggle(false);
 
   const handleSendMessage = async () => {
     if (!message.trim()) return;
@@ -55,32 +62,82 @@ const ChatRoomWithSomeone: FC<Props> = ({ params }) => {
     }
   };
 
+  const getPartnerName = useCallback(async () => {
+    try {
+      toggleIsLoading(true);
+      const res = await fetch(
+        `/api/user/friend/partner?room_id=${params.chatId}`
+      );
+
+      if (!res.ok) {
+        const data = (await res.json()) as Msg;
+
+        throw new Error(data.message);
+      }
+
+      const data = (await res.json()) as { partnername: string };
+
+      setPartnerName(data.partnername);
+    } catch (e: unknown) {
+      if (e instanceof Error) {
+        console.error(e.message);
+      } else {
+        console.error('Failed to get the name of partner');
+      }
+    } finally {
+      toggleIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      await getPartnerName();
+    })();
+  }, []);
+
   return (
-    <div className="ChatRoomWithSomeone flex flex-col h-full">
-      <div className="flex-auto ChatRoomWithSomeone__messageArea h-[90%] md:h-[95%]">
-        <Chat chatId={params.chatId} />
+    <>
+      <div className="ChatRoomWithSomeone flex flex-col h-full">
+        <div className="ChatRoomWithSomeone__header grid grid-flow-col place-items-center">
+          <Button
+            className="bg-transparent col-span-1 w-fit absolute left-0"
+            onClick={router.back}
+          >
+            <ChevronLeftIcon />
+          </Button>
+          {isLoading ? (
+            <Skeleton className="m-3 p-3 h-[1rem] w-[50%] rounded-md" />
+          ) : (
+            <div className="ChatRoomWithSomeone__partnerName text-center p-3 font-bold">
+              {partnerName}
+            </div>
+          )}
+        </div>
+        <div className="flex-auto ChatRoomWithSomeone__messageArea h-[90%] md:h-[95%]">
+          <Chat chatId={params.chatId} />
+        </div>
+        <div className="ChatRoomWithSomeone__inputArea">
+          <Input
+            className="w-full"
+            endContent={
+              <IconWrapper className="bg-slate/10 text-slate">
+                <Button
+                  isIconOnly
+                  className="bg-transparent"
+                  onClick={handleSendMessage}
+                >
+                  <SendIcon />
+                </Button>
+              </IconWrapper>
+            }
+            errorMessage={errorMsg}
+            value={message}
+            variant="bordered"
+            onChange={(e) => setMessage(e.target.value)}
+          />
+        </div>
       </div>
-      <div className="ChatRoomWithSomeone__inputArea">
-        <Input
-          className="w-full"
-          endContent={
-            <IconWrapper className="bg-slate/10 text-slate">
-              <Button
-                isIconOnly
-                className="bg-transparent"
-                onClick={handleSendMessage}
-              >
-                <SendIcon />
-              </Button>
-            </IconWrapper>
-          }
-          errorMessage={errorMsg}
-          value={message}
-          variant="bordered"
-          onChange={(e) => setMessage(e.target.value)}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 
