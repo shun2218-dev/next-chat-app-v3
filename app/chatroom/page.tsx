@@ -1,7 +1,11 @@
 'use client';
-
-import { Fragment } from 'react';
+import { FriendUserList } from '@/components/projects/FriendUserList/FriendUserList';
+import { Sidebar } from '@/components/projects/Sidebar/Sidebar';
 
 export default function ChatroomPage() {
-  return <Fragment />;
+  return (
+    <Sidebar>
+      <FriendUserList />
+    </Sidebar>
+  );
 }

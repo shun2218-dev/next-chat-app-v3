@@ -45,12 +45,15 @@ export const FriendUserList = () => {
       <Listbox
         bottomContent={<AddFriend />}
         classNames={{
-          base: 'max-w-xs',
+          base: 'max-w-full',
           list: 'max-h-[300px]',
         }}
         defaultSelectedKeys={['1']}
         emptyContent={
-          <ErrorPanel errorMsg="There may be no users other than you. Invite others to join this chat!" />
+          <ErrorPanel>
+            There may be no users other than you. <br />
+            Invite others to join this chat!
+          </ErrorPanel>
         }
         items={friendUsers}
         label="Assigned to"
@@ -74,7 +77,7 @@ export const FriendUserList = () => {
                 size="sm"
                 src={item.image!}
               />
-              <div className="md:flex md:flex-col hidden">
+              <div className="flex flex-col">
                 <span className="text-small">{item.name}</span>
                 <span className="text-tiny text-default-400">{item.email}</span>
               </div>

@@ -1,17 +1,13 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 type Props = {
-  errorMsg: string | null;
+  children: ReactNode;
 };
 
-export const ErrorPanel: FC<Props> = ({ errorMsg }) => {
+export const ErrorPanel: FC<Props> = ({ children }) => {
   return (
-    <>
-      {errorMsg !== null && (
-        <p className="ErrorPanel text-red-500 bg-red-500 bg-opacity-10 text-center p-3 mb-3 rounded-md">
-          {errorMsg}
-        </p>
-      )}
-    </>
+    <p className="ErrorPanel text-red-500 bg-red-500 bg-opacity-10 text-center p-3 mb-3 rounded-md">
+      {children}
+    </p>
   );
 };
