@@ -19,6 +19,8 @@ This is a template for creating applications using Next.js 14 (app directory) an
 - [jsQR](https://github.com/cozmo/jsQR)
 - [qrcode.react](https://github.com/zpao/qrcode.react)
 - [react-use](https://github.com/streamich/react-use)
+- [Firestore](https://firebase.google.com/docs/firestore)
+- [Cloud Storage for Firebase](https://firebase.google.com/docs/storage)
 
 ## How to Use
 
