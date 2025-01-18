@@ -1,8 +1,7 @@
 'use client';
-import type { FC } from 'react';
 import type { Message, Msg } from '@/types';
 
-import { useCallback, useEffect, useState } from 'react';
+import { use, useCallback, useEffect, useState } from 'react';
 import { Input } from '@nextui-org/input';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SendIcon from '@mui/icons-material/Send';
@@ -22,11 +21,10 @@ import { IconWrapper } from '@/components/uiParts/IconWrapper/IconWrapper';
 import { db } from '@/libs/firebase/client';
 import { Chat } from '@/components/projects/Chat/Chat';
 
-type Props = {
-  params: { chatId: string };
-};
+type Params = Promise<{ chatId: string }>;
 
-const ChatRoomWithSomeone: FC<Props> = ({ params }) => {
+const ChatRoomWithSomeone = (props: { params: Params }) => {
+  const params = use(props.params);
   const router = useRouter();
   const { data: session } = useSession();
   const [message, setMessage] = useState<string>('');
