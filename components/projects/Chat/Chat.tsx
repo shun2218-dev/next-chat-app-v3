@@ -1,7 +1,7 @@
 'use client';
 
 import type { Message } from '@/types';
-import type { FC } from 'react';
+import type { FC, RefObject } from 'react';
 
 import { Fragment, useCallback, useRef } from 'react';
 import { useSession } from 'next-auth/react';
@@ -22,8 +22,8 @@ export const Chat: FC<Props> = ({ chatId }) => {
   const { data: session } = useSession();
   const messages = useRealTimeChat(chatId);
   const bottomRef = useSmoothScroll(messages);
-  const scrollRef = useRef(null);
-  const { y } = useScroll(scrollRef);
+  const scrollRef = useRef<HTMLElement>(null);
+  const { y } = useScroll(scrollRef as RefObject<HTMLElement>);
 
   const whichMsg = useCallback((senderUid: string) => {
     return senderUid === session?.user.id ? 'own' : 'other';
