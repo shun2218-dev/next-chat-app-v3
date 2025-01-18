@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect, useRef } from 'react';
 
 // オプションにスクロールターゲットを追加
 type ScrollOptions = {
   autoScroll?: boolean;
-  scrollTarget?: React.RefObject<HTMLElement>; // スクロール先のターゲット要素
+  scrollTarget?: RefObject<HTMLElement>;
 };
 
 export const useSmoothScroll = <
@@ -12,11 +12,11 @@ export const useSmoothScroll = <
 >(
   dependencies: T,
   options?: ScrollOptions
-): React.RefObject<E> => {
+): RefObject<E | null> => {
   const bottomRef = useRef<E>(null);
 
   useEffect(() => {
-    const target = options?.scrollTarget?.current || bottomRef.current; // ターゲットを指定できるように
+    const target = options?.scrollTarget?.current || bottomRef.current;
 
     if (options?.autoScroll !== false && target) {
       target.scrollIntoView({ behavior: 'smooth' });
