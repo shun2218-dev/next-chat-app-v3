@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 import prisma from '@/libs/db';
 
-export const POST = async (req: Request, _: NextResponse) => {
+export const POST = async (req: Request) => {
   try {
     if (req.method !== 'POST')
       return NextResponse.json({ message: 'Bad Request' }, { status: 405 });
