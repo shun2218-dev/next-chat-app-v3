@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 import authOptions from '@/libs/authOptions';
 import prisma from '@/libs/db';
 
-export const POST = async (req: Request, _: NextResponse) => {
+export const POST = async (req: Request) => {
   try {
     // eslint-disable-next-line no-console
     const session = await getServerSession(authOptions);

@@ -5,7 +5,7 @@ import { compare, hash } from 'bcrypt';
 import authOptions from '@/libs/authOptions';
 import prisma from '@/libs/db';
 
-export const POST = async (req: Request, _: NextResponse) => {
+export const POST = async (req: Request) => {
   try {
     const session = await getServerSession(authOptions);
 
