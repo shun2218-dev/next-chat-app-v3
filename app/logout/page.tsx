@@ -8,7 +8,7 @@ import { Button } from '@nextui-org/button';
 import { signOut, useSession } from 'next-auth/react';
 
 import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
-import FormItem from '@/components/projects/FormItem/FormItem';
+import { FormItem } from '@/components/projects/FormItem/FormItem';
 import { useUserStore } from '@/stores/user';
 
 export default function LogoutPage() {

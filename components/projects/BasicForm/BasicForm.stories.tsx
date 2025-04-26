@@ -5,7 +5,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import { Input } from '@nextui-org/input';
 import { action } from '@storybook/addon-actions';
 
-import FormItem from '../FormItem/FormItem';
+import { FormItem } from '../FormItem/FormItem';
 
 import { BasicForm } from './BasicForm';
 

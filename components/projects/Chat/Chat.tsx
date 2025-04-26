@@ -53,8 +53,6 @@ export const Chat: FC<Props> = ({ chatId }) => {
     []
   );
 
-  console.log('test');
-
   return (
     <ScrollShadow
       ref={scrollRef}
