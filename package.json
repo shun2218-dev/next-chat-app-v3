@@ -116,5 +116,15 @@
   "volta": {
     "node": "22.13.0"
   },
-  "packageManager": "pnpm@9.15.4"
+  "packageManager": "pnpm@9.15.4",
+  "imports": {
+    "#hooks/useRealTimeChat": {
+      "storybook": "./__mocks__/hooks/useRealTimeChat.ts",
+      "default": "./hooks/useRealTimeChat.ts"
+    },
+    "#next-auth/react": {
+      "storybook": "./__mocks__/next-auth/useSession.ts",
+      "default": "next-auth/react"
+    }
+  }
 }

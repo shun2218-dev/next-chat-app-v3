@@ -4,12 +4,12 @@ import type { Message } from '@/types';
 import type { FC, RefObject } from 'react';
 
 import { Fragment, useCallback, useRef } from 'react';
-import { useSession } from 'next-auth/react';
 import { Timestamp } from 'firebase/firestore';
 import { ScrollShadow } from '@nextui-org/scroll-shadow';
 import { useScroll } from 'react-use';
 
-import { useRealTimeChat } from '@/hooks/useRealTimeChat';
+import { useSession } from '#next-auth/react';
+import { useRealTimeChat } from '#hooks/useRealTimeChat';
 import { ChatBubble } from '@/components/uiParts/ChatBubble/ChatBubble';
 import { ChatDate } from '@/components/uiParts/ChatDate/ChatDate';
 import { useSmoothScroll } from '@/hooks/useSmoothScroll';
@@ -53,6 +53,8 @@ export const Chat: FC<Props> = ({ chatId }) => {
     []
   );
 
+  console.log('test');
+
   return (
     <ScrollShadow
       ref={scrollRef}
@@ -61,7 +63,7 @@ export const Chat: FC<Props> = ({ chatId }) => {
       {messages.map(
         (msg: Message, index) =>
           msg.timestamp !== null && (
-            <Fragment key={msg.timestamp.seconds}>
+            <Fragment key={`${msg.timestamp.nanoseconds}_${index}`}>
               {(index === 0 ||
                 shouldDisplayDate(
                   msg.timestamp,

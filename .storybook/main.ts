@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/nextjs';
 
-import { join, dirname } from 'path';
+import { join, dirname, resolve } from 'path';
 
 /**
  * This function is used to resolve the absolute path of a package.
@@ -11,6 +11,14 @@ function getAbsolutePath(value: string): any {
 }
 const config: StorybookConfig = {
   stories: ['../components/**/*.stories.@(ts|tsx)'],
+  build: {
+    test: {
+      disabledAddons: [
+        '@storybook/addon-docs',
+        '@storybook/addon-essentials/docs',
+      ],
+    },
+  },
   addons: [
     getAbsolutePath('@storybook/addon-essentials'),
     getAbsolutePath('@storybook/addon-onboarding'),
@@ -21,5 +29,18 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ['..\\public'],
+  webpackFinal: async (config) => {
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@/hooks/useRealTimeChat': resolve(
+          __dirname,
+          '../__mocks__/hooks/useRealTimeChat.ts'
+        ),
+      };
+    }
+
+    return config;
+  },
 };
 export default config;

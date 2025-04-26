@@ -7,7 +7,7 @@ import { SessionProvider } from 'next-auth/react';
 
 const mockSession = {
   user: {
-    id: 'mockUserId',
+    id: 'use1',
     name: 'John Doe',
     email: 'mock@example.com',
     image: 'https://placehold.jp/150x150.png',
