@@ -67,7 +67,10 @@ export const Chat: FC<Props> = ({ chatId }) => {
                   msg.timestamp,
                   messages[index - 1].timestamp
                 )) && (
-                <ChatDate isScrolled={y > 10} timestamp={msg.timestamp} />
+                <ChatDate
+                  isScrolled={y > 10}
+                  timestamp={msg.timestamp.toDate()}
+                />
               )}
               <div
                 className={[
