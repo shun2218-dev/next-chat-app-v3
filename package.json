@@ -13,7 +13,9 @@
     "commit": "git-cz",
     "prisma:studio": "prisma studio",
     "prisma:migrate-dev": "prisma migrate dev",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -32,6 +34,7 @@
     "@nextui-org/listbox": "2.3.9",
     "@nextui-org/modal": "^2.2.7",
     "@nextui-org/navbar": "2.2.8",
+    "@nextui-org/react": "^2.6.11",
     "@nextui-org/scroll-shadow": "^2.3.5",
     "@nextui-org/skeleton": "^2.2.5",
     "@nextui-org/snippet": "2.2.10",
@@ -63,9 +66,6 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
-<<<<<<< HEAD
-    "@nextui-org/divider": "^2.2.5",
-=======
     "@chromatic-com/storybook": "3",
     "@jest/globals": "^29.7.0",
     "@nextui-org/divider": "^2.2.5",
@@ -79,7 +79,6 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
->>>>>>> 4eb78be (chore: 🤖 add storybook for AddFriend)
     "@types/bcrypt": "^5.0.2",
     "@types/node": "22.10.7",
     "@types/react": "19.0.7",
@@ -107,6 +106,7 @@
     "postcss": "8.5.1",
     "prettier": "^3.4.2",
     "prisma": "^6.2.1",
+    "storybook": "^8.6.12",
     "tailwind-variants": "0.3.0",
     "tailwindcss": "3.4.17",
     "ts-jest": "^29.3.2",

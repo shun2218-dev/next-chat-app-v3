@@ -29,18 +29,5 @@ const config: StorybookConfig = {
     options: {},
   },
   staticDirs: ['..\\public'],
-  webpackFinal: async (config) => {
-    if (config.resolve) {
-      config.resolve.alias = {
-        ...config.resolve.alias,
-        '@/hooks/useRealTimeChat': resolve(
-          __dirname,
-          '../__mocks__/hooks/useRealTimeChat.ts'
-        ),
-      };
-    }
-
-    return config;
-  },
 };
 export default config;
