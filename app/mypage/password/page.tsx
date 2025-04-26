@@ -9,7 +9,7 @@ import { useToggle } from 'react-use';
 import { useRouter } from 'next/navigation';
 
 import { ChangePasswordInputs } from '@/types';
-import BasicForm from '@/components/projects/BasicForm/BasicForm';
+import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
 import { CHANGE_PASSWORD_SCHEMA } from '@/schema/formSchema';
 import FormItem from '@/components/projects/FormItem/FormItem';
 import PasswordToggleButton from '@/components/projects/PasswordToggleButton/PasswordToggleButton';

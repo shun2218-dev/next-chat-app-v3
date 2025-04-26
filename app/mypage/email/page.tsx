@@ -10,7 +10,7 @@ import { useSession } from 'next-auth/react';
 import { Code } from '@nextui-org/code';
 
 import { ChangeEmailInputs } from '@/types';
-import BasicForm from '@/components/projects/BasicForm/BasicForm';
+import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
 import { CHANGE_EMAIL_SCHEMA } from '@/schema/formSchema';
 import FormItem from '@/components/projects/FormItem/FormItem';
 

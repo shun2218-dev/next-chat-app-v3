@@ -69,6 +69,7 @@
     "@chromatic-com/storybook": "3",
     "@jest/globals": "^29.7.0",
     "@nextui-org/divider": "^2.2.5",
+    "@storybook/addon-actions": "^8.6.12",
     "@storybook/addon-essentials": "8.6.12",
     "@storybook/addon-onboarding": "8.6.12",
     "@storybook/blocks": "8.6.12",
