@@ -122,6 +122,10 @@
       "storybook": "./__mocks__/hooks/useRealTimeChat.ts",
       "default": "./hooks/useRealTimeChat.ts"
     },
+    "#hooks/useFriend": {
+      "storybook": "./__mocks__/hooks/useFriend.ts",
+      "default": "./hooks/useFriend.ts"
+    },
     "#next-auth/react": {
       "storybook": "./__mocks__/next-auth/useSession.ts",
       "default": "next-auth/react"
