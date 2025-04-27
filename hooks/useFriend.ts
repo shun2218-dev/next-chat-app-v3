@@ -105,7 +105,8 @@ export const useFriend = () => {
     getFriendUsers,
     friendUsers,
     setFriendUsers,
-    isAddLoading: checkFriendIsLoading || addFriendIsLoading,
+    isCheckLoading: checkFriendIsLoading,
+    isAddLoading: addFriendIsLoading,
     isGetLoading: getFriendIsLoading,
   };
 };
