@@ -5,7 +5,7 @@ import type { LoginInputs, RegisterInputs } from '@/types';
 import { Input } from '@nextui-org/input';
 import { useToggle } from 'react-use';
 
-import PasswordToggleButton from '../PasswordToggleButton/PasswordToggleButton';
+import { PasswordToggleButton } from '../PasswordToggleButton/PasswordToggleButton';
 
 type Props = {
   label: string;
