@@ -14,14 +14,16 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { MyQRCode } from '../QRCodeImage/MyQRCode';
 import { QRSwitch } from '../QRSwitch/QRSwitch';
 import { QRCodeScanner } from '../QRCodeScanner/QRCodeScanner';
+import { QRCode } from '../QRCode/QRCode';
 
 import { useFriend } from '@/hooks/useFriend';
 import { REQUIRED_ONLY } from '@/schema/formSchema';
+import { useSession } from '#next-auth/react';
 
 export const AddFriend = () => {
+  const { data: session } = useSession();
   const router = useRouter();
   const {
     register,
@@ -73,7 +75,11 @@ export const AddFriend = () => {
               <ModalBody>
                 <QRSwitch onChange={(e) => setSwitchState(e.target.checked)} />
                 <div className="flex justify-center mb-4">
-                  {switchState ? <QRCodeScanner /> : <MyQRCode />}
+                  {switchState ? (
+                    <QRCodeScanner />
+                  ) : (
+                    <QRCode value={session?.user.id} />
+                  )}
                 </div>
 
                 {!switchState && (
