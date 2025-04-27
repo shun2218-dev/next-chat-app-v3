@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { useToggle } from 'react-use';
 import { useRouter } from 'next/navigation';
 

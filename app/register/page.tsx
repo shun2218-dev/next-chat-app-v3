@@ -2,10 +2,10 @@
 
 import type { RegisterInputs } from '@/types';
 
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from '@nextui-org/link';
+import { Link } from '@heroui/link';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';

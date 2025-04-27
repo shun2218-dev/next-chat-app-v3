@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 
 import { FormItem } from './FormItem';
 

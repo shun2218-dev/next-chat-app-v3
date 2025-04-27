@@ -1,10 +1,10 @@
 'use client';
 import type { FormEvent } from 'react';
 
-import { Link } from '@nextui-org/link';
+import { Link } from '@heroui/link';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { User } from '@nextui-org/user';
-import { Button } from '@nextui-org/button';
+import { User } from '@heroui/user';
+import { Button } from '@heroui/button';
 import { signOut, useSession } from 'next-auth/react';
 
 import { BasicForm } from '@/components/projects/BasicForm/BasicForm';

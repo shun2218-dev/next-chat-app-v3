@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import type { UseFormRegister } from 'react-hook-form';
 import type { LoginInputs, RegisterInputs } from '@/types';
 
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { useToggle } from 'react-use';
 
 import { PasswordToggleButton } from '../PasswordToggleButton/PasswordToggleButton';

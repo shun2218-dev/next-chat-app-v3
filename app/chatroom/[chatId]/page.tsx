@@ -2,10 +2,10 @@
 import type { Message, Msg } from '@/types';
 
 import { use, useCallback, useEffect, useState } from 'react';
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import SendIcon from '@mui/icons-material/Send';
-import { Button } from '@nextui-org/button';
+import { Button } from '@heroui/button';
 import { useSession } from 'next-auth/react';
 import {
   addDoc,
@@ -15,7 +15,7 @@ import {
 } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { useToggle } from 'react-use';
-import { Skeleton } from '@nextui-org/skeleton';
+import { Skeleton } from '@heroui/skeleton';
 
 import { IconWrapper } from '@/components/uiParts/IconWrapper/IconWrapper';
 import { db } from '@/libs/firebase/client';
