@@ -2,18 +2,18 @@
 
 import type { LoginInputs } from '@/types';
 
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Link } from '@nextui-org/link';
+import { Link } from '@heroui/link';
 import LoginIcon from '@mui/icons-material/Login';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 
-import BasicForm from '@/components/projects/BasicForm/BasicForm';
-import FormItem from '@/components/projects/FormItem/FormItem';
-import PasswordInput from '@/components/projects/PasswordInput/PasswordInput';
+import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
+import { FormItem } from '@/components/projects/FormItem/FormItem';
+import { PasswordInput } from '@/components/projects/PasswordInput/PasswordInput';
 import { LOGIN_FORM_SCHEMA } from '@/schema/formSchema';
 import { useSignIn } from '@/hooks/useSignIn';
 

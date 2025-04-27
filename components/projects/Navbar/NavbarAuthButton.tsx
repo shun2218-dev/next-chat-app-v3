@@ -1,7 +1,7 @@
-import { Button } from '@nextui-org/button';
-import { Link } from '@nextui-org/link';
-import { NavbarItem } from '@nextui-org/navbar';
-import { Skeleton } from '@nextui-org/skeleton';
+import { Button } from '@heroui/button';
+import { Link } from '@heroui/link';
+import { NavbarItem } from '@heroui/navbar';
+import { Skeleton } from '@heroui/skeleton';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';

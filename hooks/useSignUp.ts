@@ -41,6 +41,7 @@ export const useSignUp = () => {
       return { message: 'OK' };
     } catch (err) {
       if (err instanceof Error) {
+        // eslint-disable-next-line no-console
         console.error(err);
         setErrorMsg(err.message);
       }

@@ -1,9 +1,8 @@
-import { Timestamp } from 'firebase/firestore';
 import { useTheme } from 'next-themes';
 import { FC, memo, useCallback, useMemo } from 'react';
 
 type Props = {
-  timestamp: Timestamp;
+  timestamp: Date;
   isScrolled: boolean;
 };
 
@@ -11,7 +10,7 @@ const ChatDateMemo: FC<Props> = ({ timestamp, isScrolled }) => {
   const { theme } = useTheme();
 
   const formatDate = useMemo((): string => {
-    const [, month, date] = timestamp.toDate().toLocaleDateString().split('/');
+    const [, month, date] = timestamp.toLocaleDateString().split('/');
 
     const getDayOfWeekFromDate = (dateString: string): string => {
       const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -23,9 +22,9 @@ const ChatDateMemo: FC<Props> = ({ timestamp, isScrolled }) => {
     };
 
     return `${month}/${date} (${getDayOfWeekFromDate(
-      timestamp.toDate().toLocaleDateString()
+      timestamp.toLocaleDateString()
     )})`;
-  }, []);
+  }, [timestamp]);
 
   const switchColor = useCallback(
     (isScrolled: boolean) => {

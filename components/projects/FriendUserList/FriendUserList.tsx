@@ -1,12 +1,12 @@
 'use client';
 import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Listbox, ListboxItem } from '@nextui-org/listbox';
-import { Avatar } from '@nextui-org/avatar';
-import { Spinner } from '@nextui-org/spinner';
+import { Listbox, ListboxItem } from '@heroui/listbox';
+import { Avatar } from '@heroui/avatar';
+import { Spinner } from '@heroui/spinner';
 
 import { ErrorPanel } from '@/components/uiParts/ErrorPanel/ErrorPanel';
-import { useFriend } from '@/hooks/useFriend';
+import { useFriend } from '#hooks/useFriend';
 import { AddFriend } from '@/components/projects/AddFriend/AddFriend';
 
 export const FriendUserList = () => {

@@ -4,15 +4,15 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { useToggle } from 'react-use';
 import { useRouter } from 'next/navigation';
 
 import { ChangePasswordInputs } from '@/types';
-import BasicForm from '@/components/projects/BasicForm/BasicForm';
+import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
 import { CHANGE_PASSWORD_SCHEMA } from '@/schema/formSchema';
-import FormItem from '@/components/projects/FormItem/FormItem';
-import PasswordToggleButton from '@/components/projects/PasswordToggleButton/PasswordToggleButton';
+import { FormItem } from '@/components/projects/FormItem/FormItem';
+import { PasswordToggleButton } from '@/components/projects/PasswordToggleButton/PasswordToggleButton';
 
 export default function ChangePasswordPage() {
   const {

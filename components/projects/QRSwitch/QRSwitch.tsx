@@ -1,4 +1,4 @@
-import { useSwitch, SwitchProps } from '@nextui-org/switch';
+import { useSwitch, SwitchProps } from '@heroui/switch';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import QrCode2Icon from '@mui/icons-material/QrCode2';

@@ -7,16 +7,17 @@ type Props = {
   toggleVisibility: (newValue: boolean) => void;
 };
 
-const PasswordToggleButton: FC<Props> = ({ isVisible, toggleVisibility }) => {
+export const PasswordToggleButton: FC<Props> = ({
+  isVisible,
+  toggleVisibility,
+}) => {
   return (
     <button
       className="focus:outline-none"
       type="button"
       onClick={() => toggleVisibility(!isVisible)}
     >
-      {isVisible ? <VisibilityOffIcon /> : <VisibilityIcon />}
+      {isVisible ? <VisibilityIcon /> : <VisibilityOffIcon />}
     </button>
   );
 };
-
-export default PasswordToggleButton;

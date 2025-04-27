@@ -6,17 +6,17 @@ import { useEffect, useRef, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { Code } from '@nextui-org/code';
-import { Avatar } from '@nextui-org/avatar';
-import { Spinner } from '@nextui-org/spinner';
+import { Code } from '@heroui/code';
+import { Avatar } from '@heroui/avatar';
+import { Spinner } from '@heroui/spinner';
 
 import { ChangeProfileInputs } from '@/types';
-import BasicForm from '@/components/projects/BasicForm/BasicForm';
+import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
 import { CHANGE_PROFILE_SCHEMA } from '@/schema/formSchema';
-import FormItem from '@/components/projects/FormItem/FormItem';
+import { FormItem } from '@/components/projects/FormItem/FormItem';
 import { useUserStore } from '@/stores/user';
 import { useUpdateProfile } from '@/hooks/useUpdatePlofile';
 
@@ -85,7 +85,6 @@ export default function ChangeProfilePage() {
         </p>
       )}
       <FormItem>
-        {/* eslint-disable jsx-a11y/label-has-associated-control */}
         <label htmlFor="profileImage">
           <Avatar
             showFallback

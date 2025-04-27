@@ -1,16 +1,16 @@
 'use client';
 
-import { Card, CardBody, CardHeader } from '@nextui-org/card';
-import { Listbox, ListboxItem, ListboxSection } from '@nextui-org/listbox';
-import { Link } from '@nextui-org/link';
-import { User } from '@nextui-org/user';
+import { Card, CardBody, CardHeader } from '@heroui/card';
+import { Listbox, ListboxItem, ListboxSection } from '@heroui/listbox';
+import { Link } from '@heroui/link';
+import { User } from '@heroui/user';
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import VpnKeyOutlinedIcon from '@mui/icons-material/VpnKeyOutlined';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Fragment, useEffect } from 'react';
-import { Tooltip } from '@nextui-org/tooltip';
+import { Tooltip } from '@heroui/tooltip';
 import { useCopyToClipboard } from 'react-use';
 
 import { useUserStore } from '@/stores/user';

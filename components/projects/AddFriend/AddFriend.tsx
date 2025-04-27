@@ -1,8 +1,8 @@
 import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@nextui-org/button';
-import { Input } from '@nextui-org/input';
+import { Button } from '@heroui/button';
+import { Input } from '@heroui/input';
 import {
   Modal,
   ModalContent,
@@ -10,18 +10,20 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-} from '@nextui-org/modal';
+} from '@heroui/modal';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
+import { useSession } from 'next-auth/react';
 
-import { MyQRCode } from '../QRCodeImage/MyQRCode';
 import { QRSwitch } from '../QRSwitch/QRSwitch';
 import { QRCodeScanner } from '../QRCodeScanner/QRCodeScanner';
+import { QRCode } from '../QRCode/QRCode';
 
 import { useFriend } from '@/hooks/useFriend';
 import { REQUIRED_ONLY } from '@/schema/formSchema';
 
 export const AddFriend = () => {
+  const { data: session } = useSession();
   const router = useRouter();
   const {
     register,
@@ -73,7 +75,11 @@ export const AddFriend = () => {
               <ModalBody>
                 <QRSwitch onChange={(e) => setSwitchState(e.target.checked)} />
                 <div className="flex justify-center mb-4">
-                  {switchState ? <QRCodeScanner /> : <MyQRCode />}
+                  {switchState ? (
+                    <QRCodeScanner />
+                  ) : (
+                    <QRCode value={session?.user.id} />
+                  )}
                 </div>
 
                 {!switchState && (
