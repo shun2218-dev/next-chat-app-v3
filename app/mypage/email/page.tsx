@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import EmailIcon from '@mui/icons-material/Email';
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { Code } from '@nextui-org/code';
+import { Code } from '@heroui/code';
 
 import { ChangeEmailInputs } from '@/types';
 import { BasicForm } from '@/components/projects/BasicForm/BasicForm';

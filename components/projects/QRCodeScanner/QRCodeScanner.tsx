@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { Spinner } from '@nextui-org/spinner';
+import { Spinner } from '@heroui/spinner';
 import { useRouter } from 'next/navigation';
 
 import { useQRCodeScanner } from '@/hooks/useQRCodeScanner';

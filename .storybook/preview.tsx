@@ -2,7 +2,7 @@ import '../styles/globals.css';
 
 import React from 'react';
 import type { Preview } from '@storybook/react';
-import { NextUIProvider } from '@nextui-org/react';
+import { HeroUIProvider } from '@heroui/react';
 import { SessionProvider } from 'next-auth/react';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { http, HttpResponse } from 'msw';
@@ -45,9 +45,9 @@ const preview: Preview = {
   decorators: [
     (Story) => (
       <SessionProvider session={mockSession}>
-        <NextUIProvider>
+        <HeroUIProvider>
           <Story />
-        </NextUIProvider>
+        </HeroUIProvider>
       </SessionProvider>
     ),
   ],

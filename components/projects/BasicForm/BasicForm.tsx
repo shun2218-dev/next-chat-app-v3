@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '@nextui-org/button';
-import { Card, CardBody, CardFooter, CardHeader } from '@nextui-org/card';
+import { Button } from '@heroui/button';
+import { Card, CardBody, CardFooter, CardHeader } from '@heroui/card';
 import { FC, FormEvent, ReactNode } from 'react';
 
 import { title } from '@/components/primitives';

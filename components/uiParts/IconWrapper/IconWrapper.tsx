@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react';
 
 import { memo } from 'react';
-import { cn } from '@nextui-org/theme';
+import { cn } from '@heroui/theme';
 
 type Props = {
   children: ReactNode;

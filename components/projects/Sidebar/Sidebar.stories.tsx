@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Listbox, ListboxItem } from '@nextui-org/listbox';
+import { Listbox, ListboxItem } from '@heroui/listbox';
 
 import { Sidebar } from './Sidebar';
 

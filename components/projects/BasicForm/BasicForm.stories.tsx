@@ -2,7 +2,7 @@ import type { FormEvent } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import EmailIcon from '@mui/icons-material/Email';
-import { Input } from '@nextui-org/input';
+import { Input } from '@heroui/input';
 import { action } from '@storybook/addon-actions';
 
 import { FormItem } from '../FormItem/FormItem';
