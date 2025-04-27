@@ -85,7 +85,6 @@ export default function ChangeProfilePage() {
         </p>
       )}
       <FormItem>
-        {}
         <label htmlFor="profileImage">
           <Avatar
             showFallback
