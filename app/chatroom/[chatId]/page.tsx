@@ -78,8 +78,10 @@ const ChatRoomWithSomeone = (props: { params: Params }) => {
       setPartnerName(data.partnername);
     } catch (e: unknown) {
       if (e instanceof Error) {
+        // eslint-disable-next-line no-console
         console.error(e.message);
       } else {
+        // eslint-disable-next-line no-console
         console.error('Failed to get the name of partner');
       }
     } finally {

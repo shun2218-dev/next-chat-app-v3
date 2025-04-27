@@ -7,7 +7,6 @@ import prisma from '@/libs/db';
 
 export const POST = async (req: Request) => {
   try {
-    // eslint-disable-next-line no-console
     const session = await getServerSession(authOptions);
 
     if (!session || !session.user.email)
@@ -22,15 +21,6 @@ export const POST = async (req: Request) => {
 
     if (req.method !== 'POST')
       return NextResponse.json({ message: 'Bad Request' }, { status: 405 });
-
-    const currentUser = await prisma.user.findUniqueOrThrow({
-      where: {
-        email: session.user.email,
-      },
-      select: {
-        friend: true,
-      },
-    });
 
     const friendUser = await prisma.user.findUniqueOrThrow({
       where: {

@@ -38,6 +38,7 @@ export const useUserStore = create<State>()(
             set({ ...profile });
           } catch (err: unknown) {
             if (err instanceof Error) {
+              // eslint-disable-next-line no-console
               console.error(err.message);
             }
           }

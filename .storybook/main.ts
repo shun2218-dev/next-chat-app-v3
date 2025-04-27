@@ -1,6 +1,6 @@
 import type { StorybookConfig } from '@storybook/nextjs';
 
-import { join, dirname, resolve } from 'path';
+import { join, dirname } from 'path';
 
 /**
  * This function is used to resolve the absolute path of a package.
@@ -30,4 +30,5 @@ const config: StorybookConfig = {
   },
   staticDirs: ['../public'],
 };
+
 export default config;
