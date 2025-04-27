@@ -101,7 +101,7 @@ const ChatRoomWithSomeone = (props: { params: Params }) => {
         <div className="ChatRoomWithSomeone__header grid grid-flow-col place-items-center">
           <Button
             className="bg-transparent col-span-1 w-fit absolute left-0"
-            onClick={router.back}
+            onPress={router.back}
           >
             <ChevronLeftIcon />
           </Button>
@@ -124,7 +124,7 @@ const ChatRoomWithSomeone = (props: { params: Params }) => {
                 <Button
                   isIconOnly
                   className="bg-transparent"
-                  onClick={handleSendMessage}
+                  onPress={handleSendMessage}
                 >
                   <SendIcon />
                 </Button>
