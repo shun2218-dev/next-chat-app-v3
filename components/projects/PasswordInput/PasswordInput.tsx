@@ -14,7 +14,7 @@ type Props = {
   isConfirm?: boolean;
 };
 
-const PasswordInput: FC<Props> = ({
+export const PasswordInput: FC<Props> = ({
   label,
   register,
   errorMessage,
@@ -40,5 +40,3 @@ const PasswordInput: FC<Props> = ({
     />
   );
 };
-
-export default PasswordInput;
