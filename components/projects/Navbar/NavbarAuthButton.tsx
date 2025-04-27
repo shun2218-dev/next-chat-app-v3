@@ -6,8 +6,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-
-import { useSession } from '#next-auth/react';
+import { useSession } from 'next-auth/react';
 
 export const NavbarAuthButton = () => {
   const { status } = useSession();

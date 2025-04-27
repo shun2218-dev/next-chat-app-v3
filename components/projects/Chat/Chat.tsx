@@ -7,8 +7,8 @@ import { Fragment, useCallback, useRef } from 'react';
 import { Timestamp } from 'firebase/firestore';
 import { ScrollShadow } from '@nextui-org/scroll-shadow';
 import { useScroll } from 'react-use';
+import { useSession } from 'next-auth/react';
 
-import { useSession } from '#next-auth/react';
 import { useRealTimeChat } from '#hooks/useRealTimeChat';
 import { ChatBubble } from '@/components/uiParts/ChatBubble/ChatBubble';
 import { ChatDate } from '@/components/uiParts/ChatDate/ChatDate';
