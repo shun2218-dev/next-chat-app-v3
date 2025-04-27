@@ -85,7 +85,6 @@ export default function ChangeProfilePage() {
         </p>
       )}
       <FormItem>
-        {/* eslint-disable jsx-a11y/label-has-associated-control */}
         <label htmlFor="profileImage">
           <Avatar
             showFallback

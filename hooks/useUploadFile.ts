@@ -29,6 +29,7 @@ export const useUploadFile = () => {
 
       return uploadFileUrl;
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(e);
       throw new Error('Failed to upload file');
     } finally {

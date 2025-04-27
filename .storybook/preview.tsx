@@ -1,7 +1,8 @@
 import '../styles/globals.css';
 
-import React from 'react';
 import type { Preview } from '@storybook/react';
+
+import React from 'react';
 import { HeroUIProvider } from '@heroui/react';
 import { SessionProvider } from 'next-auth/react';
 import { initialize, mswLoader } from 'msw-storybook-addon';
