@@ -6,7 +6,7 @@ import { Avatar } from '@nextui-org/avatar';
 import { Spinner } from '@nextui-org/spinner';
 
 import { ErrorPanel } from '@/components/uiParts/ErrorPanel/ErrorPanel';
-import { useFriend } from '@/hooks/useFriend';
+import { useFriend } from '#hooks/useFriend';
 import { AddFriend } from '@/components/projects/AddFriend/AddFriend';
 
 export const FriendUserList = () => {

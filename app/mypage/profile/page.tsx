@@ -14,9 +14,9 @@ import { Avatar } from '@nextui-org/avatar';
 import { Spinner } from '@nextui-org/spinner';
 
 import { ChangeProfileInputs } from '@/types';
-import BasicForm from '@/components/projects/BasicForm/BasicForm';
+import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
 import { CHANGE_PROFILE_SCHEMA } from '@/schema/formSchema';
-import FormItem from '@/components/projects/FormItem/FormItem';
+import { FormItem } from '@/components/projects/FormItem/FormItem';
 import { useUserStore } from '@/stores/user';
 import { useUpdateProfile } from '@/hooks/useUpdatePlofile';
 

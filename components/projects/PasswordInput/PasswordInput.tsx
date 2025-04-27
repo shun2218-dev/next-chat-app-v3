@@ -5,7 +5,7 @@ import type { LoginInputs, RegisterInputs } from '@/types';
 import { Input } from '@nextui-org/input';
 import { useToggle } from 'react-use';
 
-import PasswordToggleButton from '../PasswordToggleButton/PasswordToggleButton';
+import { PasswordToggleButton } from '../PasswordToggleButton/PasswordToggleButton';
 
 type Props = {
   label: string;
@@ -14,7 +14,7 @@ type Props = {
   isConfirm?: boolean;
 };
 
-const PasswordInput: FC<Props> = ({
+export const PasswordInput: FC<Props> = ({
   label,
   register,
   errorMessage,
@@ -40,5 +40,3 @@ const PasswordInput: FC<Props> = ({
     />
   );
 };
-
-export default PasswordInput;

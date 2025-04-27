@@ -30,6 +30,6 @@ export const POST = async (req: Request) => {
     return NextResponse.json({ user }, { status: 201 });
   } catch (err: unknown) {
     if (err instanceof Error)
-      NextResponse.json({ message: err.message }, { status: 500 });
+      return NextResponse.json({ message: err.message }, { status: 500 });
   }
 };

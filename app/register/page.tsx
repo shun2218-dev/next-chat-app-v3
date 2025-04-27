@@ -10,9 +10,9 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
-import BasicForm from '@/components/projects/BasicForm/BasicForm';
-import FormItem from '@/components/projects/FormItem/FormItem';
-import PasswordInput from '@/components/projects/PasswordInput/PasswordInput';
+import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
+import { FormItem } from '@/components/projects/FormItem/FormItem';
+import { PasswordInput } from '@/components/projects/PasswordInput/PasswordInput';
 import { REGISTER_FORM_SCHEMA } from '@/schema/formSchema';
 import { useSignUp } from '@/hooks/useSignUp';
 

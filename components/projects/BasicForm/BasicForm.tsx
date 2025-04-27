@@ -17,7 +17,7 @@ type Props = {
   isLoading?: boolean;
 };
 
-const BasicForm: FC<Props> = ({
+export const BasicForm: FC<Props> = ({
   children,
   buttonText,
   handleSubmit,
@@ -59,5 +59,3 @@ const BasicForm: FC<Props> = ({
     </Card>
   );
 };
-
-export default BasicForm;
