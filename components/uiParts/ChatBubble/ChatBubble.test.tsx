@@ -8,31 +8,45 @@ describe('ChatBubble', () => {
     expect(screen.getByText('Hello from own')).toBeInTheDocument();
   });
 
-  it('applies correct classes for own sender', () => {
-    render(<ChatBubble message="Own message" sender="own" />);
+  describe('applies correct classes for own sender', () => {
+    it.each(['own', 'bg-blue-500', 'text-white'] as const)(
+      'container should have class: %s',
+      (className) => {
+        render(<ChatBubble message="Own message" sender="own" />);
 
-    const parentDiv = screen.getByTestId('chat-bubble-container');
+        const container = screen.getByTestId('chat-bubble-container');
 
-    expect(parentDiv).toHaveClass('own');
-    expect(parentDiv).toHaveClass('bg-blue-500');
-    expect(parentDiv).toHaveClass('text-white');
+        expect(container).toHaveClass(className);
+      }
+    );
 
-    const triangleDiv = screen.getByTestId('chat-bubble-triangle');
+    it('triangle should have class border-l-blue-500', () => {
+      render(<ChatBubble message="Own message" sender="own" />);
 
-    expect(triangleDiv).toHaveClass('border-l-blue-500');
+      const triangle = screen.getByTestId('chat-bubble-triangle');
+
+      expect(triangle).toHaveClass('border-l-blue-500');
+    });
   });
 
-  it('applies correct classes for other sender', () => {
-    render(<ChatBubble message="Other message" sender="other" />);
+  describe('applies correct classes for other sender', () => {
+    it.each(['other', 'bg-gray-300', 'text-gray-900'] as const)(
+      'container should have class: %s',
+      (className) => {
+        render(<ChatBubble message="Own message" sender="other" />);
 
-    const parentDiv = screen.getByTestId('chat-bubble-container');
+        const container = screen.getByTestId('chat-bubble-container');
 
-    expect(parentDiv).toHaveClass('other');
-    expect(parentDiv).toHaveClass('bg-gray-300');
-    expect(parentDiv).toHaveClass('text-gray-900');
+        expect(container).toHaveClass(className);
+      }
+    );
 
-    const triangleDiv = screen.getByTestId('chat-bubble-triangle');
+    it('triangle should have class border-r-gray-300', () => {
+      render(<ChatBubble message="Own message" sender="other" />);
 
-    expect(triangleDiv).toHaveClass('border-r-gray-300');
+      const triangle = screen.getByTestId('chat-bubble-triangle');
+
+      expect(triangle).toHaveClass('border-r-gray-300');
+    });
   });
 });
