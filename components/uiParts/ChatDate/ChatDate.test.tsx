@@ -33,7 +33,7 @@ describe('ChatDate', () => {
 
     const datelement = screen.getByTestId('chat-date-text');
 
-    expect(datelement.className).toContain('text-white');
+    expect(datelement).toHaveClass('text-white');
   });
 
   it('applies correct class when isScrolled is false in light theme', () => {
@@ -44,6 +44,6 @@ describe('ChatDate', () => {
 
     const datelement = screen.getByTestId('chat-date-text');
 
-    expect(datelement.className).toContain('bg-opacity-10');
+    expect(datelement).toHaveClass('bg-opacity-10');
   });
 });
