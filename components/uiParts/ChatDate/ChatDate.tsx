@@ -10,18 +10,16 @@ const ChatDateMemo: FC<Props> = ({ timestamp, isScrolled }) => {
   const { theme } = useTheme();
 
   const formatDate = useMemo((): string => {
-    const [, month, date] = timestamp.toLocaleDateString().split('/');
+    const [month, date] = timestamp.toLocaleDateString('en-US').split('/');
 
-    const getDayOfWeekFromDate = (dateString: string): string => {
+    const getDayOfWeekFromDate = (d: Date): string => {
       const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-      const date = new Date(dateString);
-
-      const dayIndex = date.getDay();
+      const dayIndex = d.getDay();
 
       return daysOfWeek[dayIndex];
     };
 
-    return `${month}/${date} (${getDayOfWeekFromDate(timestamp.toLocaleDateString())})`;
+    return `${month}/${date} (${getDayOfWeekFromDate(timestamp)})`;
   }, [timestamp]);
 
   const switchColor = useCallback(
