@@ -26,7 +26,7 @@ describe('ChatDate', () => {
   });
 
   it('applies correct class when isScrolled is true in light theme', () => {
-    mockUseTheme.mockReturnValue({ thtme: 'light' });
+    mockUseTheme.mockReturnValue({ theme: 'light' });
     const testDate = new Date();
 
     render(<ChatDate isScrolled={true} timestamp={testDate} />);
@@ -37,7 +37,7 @@ describe('ChatDate', () => {
   });
 
   it('applies correct class when isScrolled is false in light theme', () => {
-    mockUseTheme.mockReturnValue({ thtme: 'light' });
+    mockUseTheme.mockReturnValue({ theme: 'light' });
     const testDate = new Date();
 
     render(<ChatDate isScrolled={false} timestamp={testDate} />);
