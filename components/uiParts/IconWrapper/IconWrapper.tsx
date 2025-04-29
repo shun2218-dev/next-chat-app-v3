@@ -15,6 +15,7 @@ const IconWrapperMemo: FC<Props> = ({ children, className }) => {
         className,
         'flex items-center rounded-small justify-center w-7 h-7'
       )}
+      data-testid="icon-wrapper"
     >
       {children}
     </div>
