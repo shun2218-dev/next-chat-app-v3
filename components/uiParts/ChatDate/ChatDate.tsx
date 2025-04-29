@@ -21,9 +21,7 @@ const ChatDateMemo: FC<Props> = ({ timestamp, isScrolled }) => {
       return daysOfWeek[dayIndex];
     };
 
-    return `${month}/${date} (${getDayOfWeekFromDate(
-      timestamp.toLocaleDateString()
-    )})`;
+    return `${month}/${date} (${getDayOfWeekFromDate(timestamp.toLocaleDateString())})`;
   }, [timestamp]);
 
   const switchColor = useCallback(
@@ -52,6 +50,7 @@ const ChatDateMemo: FC<Props> = ({ timestamp, isScrolled }) => {
           'text-sm rounded-3xl shadow-md px-6 py-2',
           switchColor(isScrolled),
         ].join(' ')}
+        data-testid="chat-date-text"
       >
         {formatDate}
       </span>
