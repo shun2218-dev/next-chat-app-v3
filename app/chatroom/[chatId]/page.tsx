@@ -16,6 +16,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useToggle } from 'react-use';
 import { Skeleton } from '@heroui/skeleton';
+import { Spinner } from '@heroui/spinner';
 
 import { IconWrapper } from '@/components/uiParts/IconWrapper/IconWrapper';
 import { db } from '@/libs/firebase/client';
@@ -26,11 +27,15 @@ type Params = Promise<{ chatId: string }>;
 const ChatRoomWithSomeone = (props: { params: Params }) => {
   const params = use(props.params);
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [message, setMessage] = useState<string>('');
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [partnerName, setPartnerName] = useState<string | null>(null);
   const [isLoading, toggleIsLoading] = useToggle(false);
+
+  if (status === 'unauthenticated') {
+    router.push('/login');
+  }
 
   const handleSendMessage = async () => {
     if (!message.trim()) return;
@@ -114,7 +119,13 @@ const ChatRoomWithSomeone = (props: { params: Params }) => {
           )}
         </div>
         <div className="flex-auto ChatRoomWithSomeone__messageArea h-[90%] md:h-[95%]">
-          <Chat chatId={params.chatId} />
+          {status === 'loading' ? (
+            <div className="flex justify-center items-center h-full">
+              <Spinner />
+            </div>
+          ) : (
+            <Chat chatId={params.chatId} />
+          )}
         </div>
         <div className="ChatRoomWithSomeone__inputArea">
           <Input
