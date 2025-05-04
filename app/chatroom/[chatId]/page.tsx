@@ -16,6 +16,7 @@ import {
 import { useRouter } from 'next/navigation';
 import { useToggle } from 'react-use';
 import { Skeleton } from '@heroui/skeleton';
+import { Spinner } from '@heroui/spinner';
 
 import { IconWrapper } from '@/components/uiParts/IconWrapper/IconWrapper';
 import { db } from '@/libs/firebase/client';
@@ -114,7 +115,13 @@ const ChatRoomWithSomeone = (props: { params: Params }) => {
           )}
         </div>
         <div className="flex-auto ChatRoomWithSomeone__messageArea h-[90%] md:h-[95%]">
-          <Chat chatId={params.chatId} />
+          {session?.user.id ? (
+            <Chat chatId={params.chatId} />
+          ) : (
+            <div className="flex justify-center items-center h-full">
+              <Spinner />
+            </div>
+          )}
         </div>
         <div className="ChatRoomWithSomeone__inputArea">
           <Input
