@@ -58,8 +58,8 @@ const ChatBubble: FC<Props> = ({ sender, message }) => {
   }, []);
 
   return (
-    <div className={switchContainerStyle}>
-      <div className={switchTriangleStyle} />
+    <div className={switchContainerStyle} data-testid="chat-bubble-container">
+      <div className={switchTriangleStyle} data-testid="chat-bubble-triangle" />
       <p>{message}</p>
     </div>
   );
