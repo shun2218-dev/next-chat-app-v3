@@ -1,9 +1,5 @@
-import { Spinner } from '@heroui/spinner';
+import { Loading } from '@/components/uiParts/Loading/Loading';
 
 export default function RootLoadingPage() {
-  return (
-    <div className="h-full w-full flex justify-center items-center">
-      <Spinner label="loading..." />
-    </div>
-  );
+  return <Loading msg="page loading..." />;
 }

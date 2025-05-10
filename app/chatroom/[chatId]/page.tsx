@@ -16,11 +16,11 @@ import {
 import { useRouter } from 'next/navigation';
 import { useToggle } from 'react-use';
 import { Skeleton } from '@heroui/skeleton';
-import { Spinner } from '@heroui/spinner';
 
 import { IconWrapper } from '@/components/uiParts/IconWrapper/IconWrapper';
 import { db } from '@/libs/firebase/client';
 import { Chat } from '@/components/projects/Chat/Chat';
+import { Loading } from '@/components/uiParts/Loading/Loading';
 
 type Params = Promise<{ chatId: string }>;
 
@@ -120,9 +120,10 @@ const ChatRoomWithSomeone = (props: { params: Params }) => {
         </div>
         <div className="flex-auto ChatRoomWithSomeone__messageArea h-[90%] md:h-[95%]">
           {status === 'loading' ? (
-            <div className="flex justify-center items-center h-full">
-              <Spinner />
-            </div>
+            // <div className="flex justify-center items-center h-full">
+            //   <Spinner />
+            // </div>
+            <Loading msg="Getting chat data..." />
           ) : (
             <Chat chatId={params.chatId} />
           )}

@@ -15,7 +15,7 @@ export default function RegisterLayout({
   }
 
   return (
-    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 w-[100%]">
+    <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10 h-full">
       <div className="inline-block max-w-lg text-center justify-center w-[100%]">
         {children}
       </div>
