@@ -7,7 +7,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@heroui/link';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
@@ -15,6 +14,7 @@ import { FormItem } from '@/components/projects/FormItem/FormItem';
 import { PasswordInput } from '@/components/projects/PasswordInput/PasswordInput';
 import { REGISTER_FORM_SCHEMA } from '@/schema/formSchema';
 import { useSignUp } from '@/hooks/useSignUp';
+import { Loading } from '@/components/uiParts/Loading/Loading';
 
 export default function RegisterPage() {
   const {
@@ -24,12 +24,11 @@ export default function RegisterPage() {
   } = useForm<RegisterInputs>({
     resolver: zodResolver(REGISTER_FORM_SCHEMA),
   });
-  const { data: session } = useSession();
-  const router = useRouter();
+  const { status } = useSession();
   const { createAccount, isLoading, errorMsg } = useSignUp();
 
-  if (session) {
-    router.push('/mypage');
+  if (status === 'loading') {
+    return <Loading msg="Checking login status..." />;
   }
 
   return (

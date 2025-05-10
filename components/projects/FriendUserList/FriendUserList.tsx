@@ -3,11 +3,11 @@ import { Fragment, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Listbox, ListboxItem } from '@heroui/listbox';
 import { Avatar } from '@heroui/avatar';
-import { Spinner } from '@heroui/spinner';
 
 import { ErrorPanel } from '@/components/uiParts/ErrorPanel/ErrorPanel';
 import { useFriend } from '#hooks/useFriend';
 import { AddFriend } from '@/components/projects/AddFriend/AddFriend';
+import { Loading } from '@/components/uiParts/Loading/Loading';
 
 export const FriendUserList = () => {
   const [selectedKeys, setSelectedKeys] = useState<
@@ -33,11 +33,7 @@ export const FriendUserList = () => {
   }, [selectedKeys]);
 
   if (friendUsers === null) {
-    return (
-      <div className="w-full h-1/2 flex justify-center items-center">
-        <Spinner label="loading..." size="md" />
-      </div>
-    );
+    return <Loading msg="Getting friend data..." />;
   }
 
   return (
