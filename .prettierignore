@@ -15,5 +15,8 @@ LICENSE
 
 *.ico
 *.svg
+*.png
+
+*.txt
 
 prisma
