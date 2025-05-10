@@ -7,15 +7,14 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@heroui/link';
 import LoginIcon from '@mui/icons-material/Login';
-import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { useEffect } from 'react';
 
 import { BasicForm } from '@/components/projects/BasicForm/BasicForm';
 import { FormItem } from '@/components/projects/FormItem/FormItem';
 import { PasswordInput } from '@/components/projects/PasswordInput/PasswordInput';
 import { LOGIN_FORM_SCHEMA } from '@/schema/formSchema';
 import { useSignIn } from '@/hooks/useSignIn';
+import { Loading } from '@/components/uiParts/Loading/Loading';
 
 export default function LoginPage() {
   const {
@@ -25,15 +24,12 @@ export default function LoginPage() {
   } = useForm<LoginInputs>({
     resolver: zodResolver(LOGIN_FORM_SCHEMA),
   });
-  const { data: session } = useSession();
-  const router = useRouter();
+  const { status } = useSession();
   const { signIn, isLoading, errorMsg } = useSignIn();
 
-  useEffect(() => {
-    if (session) {
-      router.push('/mypage');
-    }
-  }, []);
+  if (status === 'loading') {
+    return <Loading msg="Checking login status..." />;
+  }
 
   return (
     <BasicForm
