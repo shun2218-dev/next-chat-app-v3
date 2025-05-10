@@ -120,9 +120,6 @@ const ChatRoomWithSomeone = (props: { params: Params }) => {
         </div>
         <div className="flex-auto ChatRoomWithSomeone__messageArea h-[90%] md:h-[95%]">
           {status === 'loading' ? (
-            // <div className="flex justify-center items-center h-full">
-            //   <Spinner />
-            // </div>
             <Loading msg="Getting chat data..." />
           ) : (
             <Chat chatId={params.chatId} />
