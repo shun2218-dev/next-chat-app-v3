@@ -45,7 +45,9 @@ export default function LoginPage() {
     >
       {errorMsg && (
         <p className="text-red-500 bg-red-500 bg-opacity-10 text-center p-3 mb-3 rounded-md">
-          {errorMsg}
+          Failed to sign in.
+          <br />
+          Please check your email and password.
         </p>
       )}
       <FormItem>

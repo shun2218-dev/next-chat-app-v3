@@ -1,5 +1,10 @@
 export type SiteConfig = typeof siteConfig;
 
+const vercelHost = process.env.VERCEL_URL || 'localhost:3000';
+const baseUrl = new URL(
+  `http${vercelHost.includes('localhost') ? '' : 's'}://${vercelHost}`
+);
+
 export const siteConfig = {
   name: 'Next Chat App',
   description: 'Make beautiful websites regardless of your design experience.',
@@ -18,6 +23,7 @@ export const siteConfig = {
       href: '/logout',
     },
   ],
+  url: baseUrl,
   links: {
     github: 'https://github.com/nextui-org/nextui',
     twitter: 'https://twitter.com/getnextui',

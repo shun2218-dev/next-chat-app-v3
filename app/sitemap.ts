@@ -1,21 +1,23 @@
 import type { MetadataRoute } from 'next';
 
+import { siteConfig } from '@/config/site';
+
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: process.env.SITE_URL!,
+      url: siteConfig.url.toString(),
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
-      url: `${process.env.SITE_URL!}/login`,
+      url: `${siteConfig.url.toString()}/login`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.5,
     },
     {
-      url: `${process.env.SITE_URL!}/register`,
+      url: `${siteConfig.url.toString()}/register`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.5,

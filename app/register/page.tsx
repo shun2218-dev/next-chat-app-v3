@@ -23,6 +23,7 @@ export default function RegisterPage() {
     formState: { errors, isValid },
   } = useForm<RegisterInputs>({
     resolver: zodResolver(REGISTER_FORM_SCHEMA),
+    mode: 'onBlur',
   });
   const { status } = useSession();
   const { createAccount, isLoading, errorMsg } = useSignUp();
@@ -48,7 +49,9 @@ export default function RegisterPage() {
     >
       {errorMsg && (
         <p className="text-red-500 bg-red-500 bg-opacity-10 text-center p-3 mb-3 rounded-md">
-          {errorMsg}
+          Failed to create an account.
+          <br />
+          Please check your email and password.
         </p>
       )}
       <FormItem>
@@ -66,6 +69,15 @@ export default function RegisterPage() {
           label="Password"
           register={register}
         />
+        <div className="text-sm text-gray-500 mt-2">
+          <p>Your password must meet the following requirements:</p>
+          <ul className="list-disc list-inside">
+            <li>At least 8 characters long</li>
+            <li>Includes at least one number</li>
+            <li>Includes at least one lowercase letter</li>
+            <li>Includes at least one uppercase letter</li>
+          </ul>
+        </div>
       </FormItem>
       <FormItem>
         <PasswordInput

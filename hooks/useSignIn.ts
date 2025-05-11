@@ -16,6 +16,7 @@ export const useSignIn = () => {
         email,
         password,
         callbackUrl: '/mypage',
+        redirect: false,
       });
 
       if (!res) throw new Error('Failed to sign in');
