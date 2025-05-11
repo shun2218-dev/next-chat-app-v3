@@ -21,7 +21,7 @@ export const metadata: Metadata = {
       template: `%s - ${siteConfig.name}`,
     },
     description: siteConfig.description,
-    url: process.env.SITE_URL,
+    url: siteConfig.url.toString(),
     siteName: siteConfig.name,
   },
 };

@@ -1,5 +1,7 @@
 import type { MetadataRoute } from 'next';
 
+import { siteConfig } from '@/config/site';
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
@@ -14,6 +16,6 @@ export default function robots(): MetadataRoute.Robots {
         '/api/',
       ],
     },
-    sitemap: `${process.env.SITE_URL}/sitemap.xml`,
+    sitemap: `${siteConfig.url.toString()}/sitemap.xml`,
   };
 }
