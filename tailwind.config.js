@@ -1,7 +1,7 @@
-import { heroui } from '@heroui/theme';
+const { heroui } = require('@heroui/theme');
 
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
