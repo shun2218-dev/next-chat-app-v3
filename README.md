@@ -8,7 +8,7 @@ This is a template for creating applications using Next.js 14 (app directory) an
 
 - [Next.js 14](https://nextjs.org/docs/getting-started)
 - [HeroUI](https://www.heroui.com/)
-- [Tailwind CSS](https://tailwindcss.com/)
+- [Tailwind CSS v4](https://tailwindcss.com/)
 - [Tailwind Variants](https://tailwind-variants.org)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Framer Motion](https://www.framer.com/motion/)
